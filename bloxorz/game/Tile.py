@@ -2,10 +2,11 @@ from .TileType import TileType as T
 
 
 class Tile():
-    def __init__(this, t=T.normal, trg=[], valid=True):
+    def __init__(this, t=T.normal, trg=[], valid=True, split_place=None):
         this.type = t
         this.trg = trg
         this.valid = valid
+        this.split_place = split_place
 
     def setValid(this, v):
         this.valid = v
@@ -28,6 +29,9 @@ class Tile():
             for trg in this.trg:
                 trg.setValid(not trg.getValid())
         elif this.type == T.split:
-            pass
+            # return place after split
+            return this.split_place
         else:
             pass
+
+        return None
