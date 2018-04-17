@@ -21,6 +21,18 @@ class State():
     def isValid(this):
         return True
 
+    def move(this, m: moves):
+        if m == moves.left:
+            this.left()
+        elif m == moves.right:
+            this.right()
+        elif m == moves.up:
+            this.up()
+        elif m == moves.down:
+            this.down()
+        else:
+            print("[?] Where the hell shoul I move")
+
     def up(this):
         print("[*] Move up")
 
