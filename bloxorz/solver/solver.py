@@ -4,23 +4,28 @@
 # from bloxorz.game.TileType import TileType as T
 
 from bloxorz.solver.State import State
+from .BFS import BFS
+from .DFS import DFS
+from .HILL import HILL
+from .ANNEALING import ANNEALING
+from .FIRST import FIRST
 
 
 def bfs(s):
-    print("[+] Solving...")
+    BFS()
 
 
 def dfs(s):
-    print("[+] Solving...")
+    DFS()
 
 
 def hill(s):
-    print("[+] Solving...")
+    HILL()
 
 
 def annealing(s):
-    print("[+] Solving...")
+    ANNEALING()
 
 
 def first(s):
-    print("[+] Solving...")
+    FIRST()
