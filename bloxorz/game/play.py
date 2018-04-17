@@ -4,8 +4,10 @@ from bloxorz.game.Stage import Stage
 from bloxorz.game.Tile import Tile
 from bloxorz.game.TileType import TileType as T
 
+from bloxorz.solver.State import State
+
 from bloxorz.game.mode import mode as m
-import bloxorz.solver.solver as solver
+from bloxorz.solver.Solver import Solver
 
 import pickle
 
@@ -26,27 +28,9 @@ def load(f):
 
 
 def play(f, mode=m.bfs):
-    s = load(f)
+    stage = load(f)
+    init = State(stage)
 
-    if mode == m.bfs:
-        print("[+] Solving with bfs now")
-        solver.bfs(s)
-
-    elif mode == m.dfs:
-        print("[+] Solving with dfs now")
-        solver.dfs(s)
-
-    elif mode == m.hill:
-        print("[+] Solving with hill climbing now")
-        solver.hill(s)
-
-    elif mode == m.annealing:
-        print("[+] Simulated Annealing?")
-        solver.annealing(s)
-
-    elif mode == m.best:
-        print("[+] Someone says best first?")
-        solver.best(s)
-
-    else:
-        print("[?] LOL what algorithm")
+    problem = Solver(init, mode)
+    problem.solve()
+    print(problem)

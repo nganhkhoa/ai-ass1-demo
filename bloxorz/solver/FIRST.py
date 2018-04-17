@@ -1,2 +1,0 @@
-def FIRST():
-    print("[+] Looping...")

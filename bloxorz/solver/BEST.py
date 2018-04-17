@@ -1,5 +1,5 @@
 from bloxorz.solver.moves import moves
 
 
-def ANNEALING(s):
+def BEST(s):
     print("[+] Looping...")
