@@ -2,14 +2,15 @@ from enum import Enum, auto
 
 
 class TileType(Enum):
+    # normal toggle button
+    soft_button = 1
+    hard_button = 2
+    # button with only one scenario
+    soft_special_button = 1
+    hard_special_button = 2
+
     normal = auto()
     goal = auto()
     split = auto()
     soft_ground = auto()
     bridge = auto()
-    soft_gate = auto()
-    soft_open_gate = auto()
-    soft_close_gate = auto()
-    hard_gate = auto()
-    hard_open_gate = auto()
-    hard_close_gate = auto()

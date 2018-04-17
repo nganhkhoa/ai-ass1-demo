@@ -2,11 +2,25 @@ from .TileType import TileType as T
 
 
 class Tile():
-    def __init__(this, t=T.normal, trg=[], valid=True, split_place=None):
+    def __init__(this, t=T.normal, info=None, others=None):
         this.type = t
-        this.trg = trg
-        this.valid = valid
-        this.split_place = split_place
+        if t == T.normal:
+            pass
+        if t == T.bridge:
+            this.valid = info
+        elif t == T.split:
+            this.split_place = info
+        else:
+            # button
+            if others is None:
+                # a simple button toggle the state every time pressed
+                this.toggle = info
+            else:
+                # a button with constraints
+                # either open bridges
+                # or close bridges
+                this.open = info
+                this.close = others
 
     def setValid(this, v):
         this.valid = v
@@ -14,23 +28,35 @@ class Tile():
     def getValid(this):
         return this.valid
 
-    def trigger(this):
-        if this.type == T.closegate:
-            # close all tile associate
-            for trg in this.trg:
-                trg.setValid(False)
-        elif this.type == T.opengate:
-            # open all tile associate
-            for trg in this.trg:
-                trg.setValid(True)
-        elif this.type == T.gate:
-            # set all gate associate to
-            # another state
-            for trg in this.trg:
-                trg.setValid(not trg.getValid())
-        elif this.type == T.split:
-            # return place after split
-            return this.split_place
+    def trigger(this, block):
+        t = this.type
+
+        if t == 1:
+            # a soft button
+            if t == T.soft_button:
+                for tile in this.toggle:
+                    tile.valid = not tile.valid
+            else:
+                for tile in this.open:
+                    tile.valid = True
+                for tile in this.close:
+                    tile.valid = False
+
+        elif t == 2 and block.standing():
+            # a hard button
+            if t == T.hard_button:
+                for tile in this.toggle:
+                    tile.valid = not tile.valid
+            else:
+                for tile in this.open:
+                    tile.valid = True
+                for tile in this.close:
+                    tile.valid = False
+
+        elif t == T.soft_ground and block.standing():
+            # watch out, you'll fall
+            raise Exception("Fall")
+
         else:
             pass
 

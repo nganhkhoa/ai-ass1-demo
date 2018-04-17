@@ -37,11 +37,11 @@ def stage2():
               Tile(), Tile(), Tile(), Tile(),
               None, None, Tile(), Tile(), Tile()]
 
-    arr[1] = [Tile(), Tile(), Tile(), Tile(), None, None,
-              Tile(), Tile(), Tile(T.hard_open_gate, bridge_right), Tile(),
+    arr[1] = [Tile(), Tile(), Tile(), Tile(), None, None, Tile(), Tile(),
+              Tile(T.hard_special_button, bridge_right, []), Tile(),
               None, None, Tile(), Tile(T.goal), Tile()]
 
-    arr[2] = [Tile(), Tile(), Tile(T.soft_gate, bridge_left), Tile(),
+    arr[2] = [Tile(), Tile(), Tile(T.soft_button, bridge_left), Tile(),
               None, None, Tile(), Tile(), Tile(), Tile(),
               None, None, Tile(), Tile(), Tile()]
 
