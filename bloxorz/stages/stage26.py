@@ -5,8 +5,8 @@ from bloxorz.game.Tile import Tile
 from bloxorz.game.TileType import TileType as T
 
 
-def stage_():
+def stage26():
     arr = [[] for i in range(0)]  # type: List[List[Tile]]
 
-    s = Stage('stage_', arr, 1, 1)
-    s.save('stage_')
+    s = Stage('stage26', arr, 1, 1)
+    s.save('stage26')
