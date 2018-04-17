@@ -1,10 +1,11 @@
 from bloxorz.stages.GenStage import GenStage
 from bloxorz.game.play import play
+from bloxorz.game.mode import mode as m
 
 
 if __name__ == "__main__":
     while True:
-        print("\033[2H", end="")
+        print("\033[1H", end="")
         print("\033[J", end="")
         print("1. Generate stages")
         print("2. Play stage")
@@ -25,7 +26,7 @@ if __name__ == "__main__":
             continue
 
         try:
-            print("\033[2H", end="")
+            print("\033[1H", end="")
             print("\033[J", end="")
             print("Choose your favorite stage")
             print("0 to play all game")
@@ -40,5 +41,14 @@ if __name__ == "__main__":
         elif choice == 0:
             pass
         else:
-            play("stage{}".format(choice))
+            print("\033[1H", end="")
+            print("\033[J", end="")
+            print("Choose your algorithm")
+            print("1. BFS")
+            print("2. DFS")
+            print("3. Hill clibming")
+            print("4. Simulated Annealing")
+            print("5. Best First Search")
+            mode = m(int(input("$>> ")))
+            play("stage{}".format(choice), mode)
             input()

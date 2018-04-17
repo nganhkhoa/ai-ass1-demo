@@ -29,21 +29,24 @@ def play(f, mode=m.bfs):
     s = load(f)
 
     if mode == m.bfs:
-        print("Solving with bfs now")
+        print("[+] Solving with bfs now")
         solver.bfs(s)
+
     elif mode == m.dfs:
-        print("Solving with dfs now")
+        print("[+] Solving with dfs now")
         solver.dfs(s)
+
     elif mode == m.hill:
-        print("Solving with hill climbing now")
+        print("[+] Solving with hill climbing now")
         solver.hill(s)
-    elif mode == m.anealing:
-        print("Simulated Anealing?")
-        solver.anealing(s)
+
+    elif mode == m.annealing:
+        print("[+] Simulated Annealing?")
+        solver.annealing(s)
+
     elif mode == m.best:
-        print("Someone says best first?")
+        print("[+] Someone says best first?")
         solver.best(s)
 
     else:
-        print("LOL what algorithm")
-
+        print("[?] LOL what algorithm")
