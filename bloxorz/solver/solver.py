@@ -5,6 +5,7 @@
 
 from bloxorz.solver.State import State
 
+
 def bfs(s):
     print("[+] Solving...")
 
@@ -17,7 +18,7 @@ def hill(s):
     print("[+] Solving...")
 
 
-def anealing(s):
+def annealing(s):
     print("[+] Solving...")
 
 
