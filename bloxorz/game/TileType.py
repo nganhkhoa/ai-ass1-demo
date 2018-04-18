@@ -1,7 +1,7 @@
-from enum import Enum, auto
+from enum import IntEnum, auto
 
 
-class TileType(Enum):
+class TileType(IntEnum):
     # normal toggle button
     soft_button = 1
     hard_button = 2

@@ -1,7 +1,7 @@
 from .TileType import TileType as T
 
 
-class Tile():
+class Tile:
     def __init__(this, t=T.normal, info=None, others=None):
         this.type = t
         if t == T.normal:
@@ -22,15 +22,35 @@ class Tile():
                 this.open = info
                 this.close = others
 
+    def __repr__(this):
+        t = this.type
+        if t == 1:
+            return "O"
+        elif t == 2:
+            return "X"
+        elif t == T.soft_ground:
+            return "\033[31;41m \033[0m"
+        elif t == T.bridge and this.valid:
+            return "\033[33;43m \033[0m"
+        elif t == T.split:
+            return "S"
+        elif t == T.goal:
+            return "\033[36;46m \033[0m"
+        else:
+            return "\033[37;47m \033[0m"
+
     def setValid(this, v):
         this.valid = v
 
     def getValid(this):
         return this.valid
 
-    def trigger(this, block):
-        t = this.type
+    def isGoal(this):
+        return this.type == T.goal
 
+    def trigger(self, standing):
+        t = this.type
+        if t
         if t == 1:
             # a soft button
             if t == T.soft_button:
@@ -42,7 +62,7 @@ class Tile():
                 for tile in this.close:
                     tile.valid = False
 
-        elif t == 2 and block.standing():
+        elif t == 2 and standing:
             # a hard button
             if t == T.hard_button:
                 for tile in this.toggle:
@@ -53,7 +73,7 @@ class Tile():
                 for tile in this.close:
                     tile.valid = False
 
-        elif t == T.soft_ground and block.standing():
+        elif t == T.soft_ground and standing:
             # watch out, you'll fall
             raise Exception("Fall")
 
