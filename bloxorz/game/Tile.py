@@ -22,6 +22,23 @@ class Tile():
                 this.open = info
                 this.close = others
 
+    def __repr__(this):
+        t = this.type
+        if t == 1:
+            return "O"
+        elif t == 2:
+            return "X"
+        elif t == T.soft_ground:
+            return "\033[31;41m \033[0m"
+        elif t == T.bridge and this.valid:
+            return "\033[33;43m \033[0m"
+        elif t == T.split:
+            return "S"
+        elif t == T.goal:
+            return "\033[36;46m \033[0m"
+        else:
+            return "\033[37;47m \033[0m"
+
     def setValid(this, v):
         this.valid = v
 

@@ -13,7 +13,14 @@ class State():
         this.moves = []  # type: List[moves]
 
     def __repr__(this):
-        print()
+        for line in this.board:
+            for tile in line:
+                if tile is None:
+                    print(" ", end='')
+                else:
+                    print(tile, end='')
+            print()
+        return ""
 
     def isGoal(this):
         return True
@@ -22,6 +29,10 @@ class State():
         return True
 
     def move(this, m: moves):
+        # you'll only need this:
+        # this.blox.move(m)
+
+        # below is for demo only
         if m == moves.left:
             this.left()
         elif m == moves.right:
@@ -31,7 +42,23 @@ class State():
         elif m == moves.down:
             this.down()
         else:
-            print("[?] Where the hell shoul I move")
+            print("[?] Where the hell should I move")
+
+        # check if this move is valid
+        """
+        idx = this.blox.index()
+        try:
+            this.board[idx[0]][idx[1]].trigger()
+            this.board[idx[2]][idx[3]].trigger()
+        except IndexError:
+            raise
+        except None:
+            raise
+        except Fall:
+            raise
+
+        # this is a valid move
+        """
 
     def up(this):
         print("[*] Move up")
