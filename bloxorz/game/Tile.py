@@ -45,7 +45,7 @@ class Tile():
     def getValid(this):
         return this.valid
 
-    def trigger(this, block):
+    def trigger(this, standing):
         t = this.type
 
         if t == 1:
@@ -59,7 +59,7 @@ class Tile():
                 for tile in this.close:
                     tile.valid = False
 
-        elif t == 2 and block.standing():
+        elif t == 2 and standing:
             # a hard button
             if t == T.hard_button:
                 for tile in this.toggle:
@@ -70,7 +70,7 @@ class Tile():
                 for tile in this.close:
                     tile.valid = False
 
-        elif t == T.soft_ground and block.standing():
+        elif t == T.soft_ground and standing:
             # watch out, you'll fall
             raise Exception("Fall")
 
