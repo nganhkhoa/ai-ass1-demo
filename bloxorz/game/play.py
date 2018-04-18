@@ -12,7 +12,7 @@ from bloxorz.solver.Solver import Solver
 from bloxorz.solver.moves import moves
 
 import pickle
-from bloxorz.solver.Getch import _Getch
+# from bloxorz.solver.Getch import _Getch
 
 def load(f):
     try:
