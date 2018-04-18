@@ -45,6 +45,9 @@ class Tile():
     def getValid(this):
         return this.valid
 
+    def isGoal(this):
+        return this.type == T.goal
+
     def trigger(this, standing):
         t = this.type
 
