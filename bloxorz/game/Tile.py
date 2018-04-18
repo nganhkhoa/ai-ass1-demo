@@ -1,7 +1,7 @@
 from .TileType import TileType as T
 
 
-class Tile():
+class Tile:
     def __init__(this, t=T.normal, info=None, others=None):
         this.type = t
         if t == T.normal:
@@ -48,9 +48,9 @@ class Tile():
     def isGoal(this):
         return this.type == T.goal
 
-    def trigger(this, standing):
+    def trigger(self, standing):
         t = this.type
-
+        if t
         if t == 1:
             # a soft button
             if t == T.soft_button:

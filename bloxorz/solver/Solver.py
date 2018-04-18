@@ -15,7 +15,7 @@ from .ANNEALING import ANNEALING
 from .BEST import BEST
 
 
-class Solver():
+class Solver:
     def __init__(this, s: State, m: mode):
         this.queue = [s]
         this.mode = m
