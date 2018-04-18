@@ -50,7 +50,7 @@ A tile is a square in the game. There are many types of tile.
 
 1. The normal tile, this tile type has no effect on the block.
 2. The soft tile, this tile cannot hold two blocks the same time. If our block is standing, this tile will break and our precious block will fall.
-3. The button tile, this tile is a button type, pressing on the button will trigger something. And there are many type of buttons to.
+3. The button tile, this tile is a button type, pressing on the button will trigger something. And there are many type of buttons too.
 4. The bridge tile, this tile is something that will be trigger by a button. In somecases, it will be close, you cannot move through it.
 5. The goal tile, standing on this tile is considered win.
 6. The split tile, stadning on this tile will teleport our block to 2 different places.
