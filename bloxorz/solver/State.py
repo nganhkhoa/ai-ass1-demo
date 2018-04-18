@@ -1,7 +1,7 @@
 from typing import List
 
 from bloxorz.game.Stage import Stage
-from bloxorz.game.Block import Block
+from bloxorz.solver.Blox import Blox
 from bloxorz.solver.moves import moves
 
 
@@ -9,11 +9,11 @@ class State():
     def __init__(this, s: Stage):
         # do something to parse the stage to a state
         this.board = s.board
-        this.block = Block(s.start_x, s.start_y)
+        this.blox = Blox(s.start_x, s.start_y)
         this.moves = []  # type: List[moves]
 
     def __repr__(this):
-        print(this.moves)
+        print()
 
     def isGoal(this):
         return True
