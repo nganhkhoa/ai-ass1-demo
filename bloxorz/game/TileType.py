@@ -3,11 +3,11 @@ from enum import IntEnum, auto
 
 class TileType(IntEnum):
     # normal toggle button
-    soft_button = 1
-    hard_button = 2
+    soft_button = auto()
+    hard_button = auto()
     # button with only one scenario
-    soft_special_button = 1
-    hard_special_button = 2
+    soft_special_button = auto()
+    hard_special_button = auto()
 
     normal = auto()
     goal = auto()
