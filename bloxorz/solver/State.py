@@ -23,16 +23,33 @@ class State():
         return ""
 
     def isGoal(this):
-        return True
+        idx = this.blox.index()
+        standing = this.blox.standing()
+        try:
+            return this.board[idx[0]][idx[1]].isGoal() and standing
+        except:
+            return False
 
-    def isValid(this):
-        return True
+    def getAll(this):
+        return this.board, this.blox.index(), this.blox.active()
+
+    def getBoard(this):
+        return this.board
+
+    def getIndex(this):
+        return this.blox.index()
+
+    def isSplit(this):
+        return this.blox.splitting()
+
+    def getActiveBlock(this):
+        return this.blox.active()
+
+    def setActiveBlock(this, b):
+        this.blox.setActive(b)
 
     def move(this, m: moves):
-        # you'll only need this:
-        # this.blox.move(m)
-
-        # below is for demo only
+        # DEMO ONLY
         if m == moves.left:
             this.left()
         elif m == moves.right:
@@ -44,8 +61,9 @@ class State():
         else:
             print("[?] Where the hell should I move")
 
-        # check if this move is valid
+        # REAL WORK
         """
+        this.blox.move(m)
         idx = this.blox.index()
         standing = this.blox.standing()
         try:
@@ -61,7 +79,7 @@ class State():
         #   ...
 
         # this is a valid move
-        if this.blox.spliting:
+        if this.blox.spliting():
             this.blox.join()
         """
 
