@@ -29,14 +29,14 @@ def load(f):
     return s
 
 
-def get_key(getch):
-    line = getch()
+# def get_key(getch):
+#     line = getch()
 
 
 def play(f, mode=None):
     stage = load(f)
     init = State(stage)
-    getch = _Getch
+    # getch = _Getch
 
     if mode is None:
         s = init
