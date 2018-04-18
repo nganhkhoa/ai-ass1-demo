@@ -47,17 +47,22 @@ class State():
         # check if this move is valid
         """
         idx = this.blox.index()
+        standing = this.blox.standing()
         try:
-            this.board[idx[0]][idx[1]].trigger()
-            this.board[idx[2]][idx[3]].trigger()
+            this.board[idx[0]][idx[1]].trigger(standing)
+            this.board[idx[2]][idx[3]].trigger(standing)
         except IndexError:
             raise
         except None:
             raise
         except Fall:
             raise
+        # except Split:
+        #   ...
 
         # this is a valid move
+        if this.blox.spliting:
+            this.blox.join()
         """
 
     def up(this):
