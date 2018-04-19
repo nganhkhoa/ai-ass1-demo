@@ -71,9 +71,8 @@ def move(self, m):
         self.blox[1] = Block(ret[2], ret[3])
         self.blox[1].height = 1
 
-    if self.blox[0].isSplit():
-        # try to join the blocks
-        pass
+    # try to join blocks
+    self.join()
 
     # record the moves
     self.moves.append(m)
@@ -153,3 +152,34 @@ class State:
 
     def setActiveBlock(this, b):
         this.selection = b
+
+    def toggleActive(this):
+        this.selection = 2 if this.selection == 1 else 1
+
+    def join(this):
+        if not this.isSplit():
+            return
+
+        idx1, idx2 = getIdx(this.blox)
+
+        if idx1[0] == idx2[0]:
+            if abs(idx1[1] - idx2[1]) == 1:
+                if idx1[1] > idx2[1]:
+                    this.blox[0].join(moves.left)
+                    this.blox[0].location[1] -= 1
+                else:
+                    this.blox[0].join(moves.right)
+                this.blox[1] = None
+                this.selection = 1
+                return
+
+        if idx1[1] == idx2[1]:
+            if abs(idx1[0] - idx2[0]) == 1:
+                if idx1[0] > idx2[0]:
+                    this.blox[0].join(moves.up)
+                    this.blox[0].location[0] -= 1
+                else:
+                    this.blox[0].join(moves.down)
+                this.blox[1] = None
+                this.selection = 1
+                return
