@@ -9,7 +9,7 @@ class Tile:
         if t == T.bridge:
             this.valid = info
         elif t == T.split:
-            this.split_place = info
+            this.split_place = info  # [x,y,x,y]
         else:
             # button
             if others is None:
@@ -80,6 +80,9 @@ class Tile:
 
         elif t == T.bridge and this.valid == False:
             raise Exception("HiddenBridge")
+
+        elif t == T.split:
+            return this.split_place
 
         else:
             pass
