@@ -3,16 +3,15 @@ from bloxorz.stages.GenStage import GenStage
 from bloxorz.game.Stage import Stage
 from bloxorz.game.Tile import Tile
 from bloxorz.game.TileType import TileType as T
+from bloxorz.game.mode import mode as m
 
 from bloxorz.solver.State import State, move
-
-from bloxorz.game.mode import mode as m
 from bloxorz.solver.Solver import Solver
-
 from bloxorz.solver.moves import moves
 
 import pickle
-# from bloxorz.solver.Getch import _Getch
+import click
+
 
 def load(f):
     try:
@@ -29,16 +28,38 @@ def load(f):
     return s
 
 
-# def get_key(getch):
-#     line = getch()
+def getKey():
+    k = click.getchar()
+
+    if k == '\033[A':
+        return moves.up
+    elif k == '\033[B':
+        return moves.down
+    elif k == '\033[C':
+        return moves.right
+    elif k == '\033[D':
+        return moves.left
+
+    elif k == ' ':
+        return ' '
+
+    input()
+
 
 
 def play(f, mode=None):
     stage = load(f)
     init = State(stage)
-    # getch = _Getch
 
     if mode is None:
+        print("Load moves files? Please enter file name")
+        filename = input("$>> ")
+
+        if filename:
+            pass
+        else:
+            input("Gaming mode, Ctrl+C to quit")
+
         s = init
         while True:
             print("\033[1H", end="")
@@ -46,20 +67,35 @@ def play(f, mode=None):
             print(s)
 
             if s.isGoal():
-                input("[+] You win, how good")
+                print("[+] You made {} moves".format(len(s.moves)))
+                print("[+] Press to continue")
+                click.getchar()
                 break
 
-            print("1. Up; 2. Down; 3. Left; 4. Right")
-            # key = get_key(getch)
             try:
-                key = moves(int(input()))
-            except ValueError:
+                # key = get_key()
+                # key = moves(int(input()))
+
+                print("[+] Make a move")
+                key = getKey()
+
+                while key == ' ':
+                    if not s.isSplit():
+                        break
+                    s.toggleActive()
+                    print("\033[1H", end="")
+                    print("\033[J", end="")
+                    print(s)
+                    key = getKey()
+
+            except KeyboardInterrupt:
                 break
 
             try:
                 move(s, key)
             except Exception as e:
-                input("--- Invalid move, revert\n--- {}".format(e))
+                print("--- Invalid move, revert\n--- {}".format(e))
+                click.getchar()
 
     else:
         problem = Solver(init, mode)
