@@ -10,15 +10,12 @@ class State(enumerate):
     neutral = 0
 
 class Block:
-    blocks = []
-    numberBlocks = len(blocks)
     splitting = False
 
     def __init__(self, x, y):
         self.height = 2
         self.state = State.standing
         self.location = [x, y]
-        Block.blocks.append(self)
 
     def isSplit(self):
         return self.splitting
@@ -29,8 +26,15 @@ class Block:
         self.height = 1
         self.state = State.neutral
 
-    def join(self):
+    def join(self, direction):
+        # join to where?
+        self.splitting = False
         self.height = 2
+
+        if direction == moves.left or direction == moves.right:
+            self.state = State.horizontal
+        else:
+            self.state = State.vertical
 
     def setActive(self, blk):
         if self.splitting:
