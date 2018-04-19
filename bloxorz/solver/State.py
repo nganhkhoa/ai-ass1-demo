@@ -30,6 +30,10 @@ def move(self, m):
     block.move(m)
 
     idx1, idx2 = getIdx(self.blox)
+    if self.selection == 2:
+        # turn bold mode for idx2
+        # thus swap them
+        idx1, idx2 = idx2, idx1
 
     if idx1[0] < 0 or idx1[1] < 0 or \
        idx2[0] < 0 or idx2[1] < 0:
@@ -46,7 +50,7 @@ def move(self, m):
             self.board[idx2[0]][idx2[1]].trigger(standing)
         else:
             # if standing --> already triggered
-            # if splitting --> the remaining block is unchanged
+            # if splitting --> the remaining block is not move
             pass
 
     except IndexError:
@@ -86,6 +90,10 @@ class State:
 
     def __repr__(this):
         idx1, idx2 = getIdx(this.blox)
+        if this.selection == 2:
+            # turn bold mode for idx2
+            # thus swap them
+            idx1, idx2 = idx2, idx1
         i = 0
 
         # print(idx1)
@@ -96,7 +104,7 @@ class State:
             j = 0
             for tile in line:
                 if i == idx1[0] and j == idx1[1]:
-                    print("*", end='')
+                    print("\033[1;91m*\033[0m", end='')
 
                 elif i == idx2[0] and j == idx2[1]:
                     print("*", end='')

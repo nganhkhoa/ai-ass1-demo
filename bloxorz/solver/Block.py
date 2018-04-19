@@ -98,7 +98,7 @@ class Block:
             # unchanged state, still vertical
 
         else:
-            pass
+            self.location[1] -= toLeft
 
     def move_up_down(self, toUp):
         if self.state == State.standing:
@@ -119,7 +119,7 @@ class Block:
             self.state = State.standing
 
         else:
-            pass
+            self.location[0] -= toUp
 
     def move_left(self):
         self.move_left_right(1)
