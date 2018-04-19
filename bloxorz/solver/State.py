@@ -64,7 +64,7 @@ def move(self, m):
     if ret is not None:
         # hit a split button
         self.blox[0].split(ret[0:2])
-        self.blox[1] = Block(ret[3], ret[4])
+        self.blox[1] = Block(ret[2], ret[3])
         self.blox[1].height = 1
 
     if self.blox[0].isSplit():
