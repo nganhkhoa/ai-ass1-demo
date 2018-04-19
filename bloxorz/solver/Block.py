@@ -7,6 +7,7 @@ class State(enumerate):
     horizontal = 1
     vertical = 2
     standing = 3
+    neutral = 0
 
 class Block:
     blocks = []
@@ -17,40 +18,53 @@ class Block:
         self.height = 2
         self.state = State.standing
         self.location = [x, y]
-        self.another = None
         Block.blocks.append(self)
 
     def isSplit(self):
         return self.splitting
 
     def split(self, places):
-        self.location = places[0]
-        self.another = places[1]
+        self.location = places
+        self.splitting = True
+        self.height = 1
+        self.state = State.neutral
 
     def join(self):
-        self.another = None
+        self.height = 2
+
+    def setActive(self, blk):
+        if self.splitting:
+            pass
+        else:
+            pass
 
     def standing(self):
         return self.state == State.standing
 
+    def horizon(self):
+        return self.state == State.horizontal
+    
+    def vertical(self):
+        return self.state == State.vertical
+
     def getIndex(self):
-        if self.splitting:
-            return []
+        # if self.splitting:
+        #     return self.location, self.another
 
-        second_block = []
-        if self.state == State.standing:
-            second_block = [self.location[0], self.location[1]]
+        # second_block = []
+        # if self.state == State.standing:
+        #     second_block = [self.location[0], self.location[1]]
 
-        elif self.state == State.horizontal:
-            second_block = [self.location[0], self.location[1] + 1]
+        # elif self.state == State.horizontal:
+        #     second_block = [self.location[0], self.location[1] + 1]
 
-        elif self.state == State.vertical:
-            second_block = [self.location[0] + 1, self.location[1]]
+        # elif self.state == State.vertical:
+        #     second_block = [self.location[0] + 1, self.location[1]]
 
-        else:
-            pass
+        # else:
+        #     pass
 
-        return self.location, second_block
+        return self.location
 
     def move(self, m: moves):
         if m == moves.left:
