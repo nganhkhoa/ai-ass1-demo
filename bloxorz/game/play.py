@@ -4,7 +4,7 @@ from bloxorz.game.Stage import Stage
 from bloxorz.game.Tile import Tile
 from bloxorz.game.TileType import TileType as T
 
-from bloxorz.solver.State import State
+from bloxorz.solver.State import State, move
 
 from bloxorz.game.mode import mode as m
 from bloxorz.solver.Solver import Solver
@@ -44,14 +44,22 @@ def play(f, mode=None):
             print("\033[1H", end="")
             print("\033[J", end="")
             print(s)
+
+            if s.isGoal():
+                input("[+] You win, how good")
+                break
+
             print("1. Up; 2. Down; 3. Left; 4. Right")
             # key = get_key(getch)
             try:
                 key = moves(int(input()))
             except ValueError:
                 break
-            s.move(key)
-            input()
+
+            try:
+                move(s, key)
+            except Exception as e:
+                input("--- Invalid move, revert\n--- {}".format(e))
 
     else:
         problem = Solver(init, mode)

@@ -1,15 +1,18 @@
 from enum import Enum
 
+from bloxorz.solver.moves import moves
+
 
 class State(enumerate):
     horizontal = 1
     vertical = 2
     standing = 3
+    neutral = 0
 
 class Block:
     blocks = []
     numberBlocks = len(blocks)
-    slipt = False
+    splitting = False
 
     def __init__(self, x, y):
         self.height = 2
@@ -17,79 +20,120 @@ class Block:
         self.location = [x, y]
         Block.blocks.append(self)
 
-    def isSlipt(self):
-        return self.slipt
+    def isSplit(self):
+        return self.splitting
+
+    def split(self, places):
+        self.location = places
+        self.splitting = True
+        self.height = 1
+        self.state = State.neutral
+
+    def join(self):
+        self.height = 2
+
+    def setActive(self, blk):
+        if self.splitting:
+            pass
+        else:
+            pass
+
+    def standing(self):
+        return self.state == State.standing
+
+    def horizon(self):
+        return self.state == State.horizontal
+    
+    def vertical(self):
+        return self.state == State.vertical
 
     def getIndex(self):
+        # if self.splitting:
+        #     return self.location, self.another
+
+        # second_block = []
+        # if self.state == State.standing:
+        #     second_block = [self.location[0], self.location[1]]
+
+        # elif self.state == State.horizontal:
+        #     second_block = [self.location[0], self.location[1] + 1]
+
+        # elif self.state == State.vertical:
+        #     second_block = [self.location[0] + 1, self.location[1]]
+
+        # else:
+        #     pass
+
         return self.location
 
-    def move_left_right(self, matrix, factor):
+    def move(self, m: moves):
+        if m == moves.left:
+            self.move_left()
+        elif m == moves.right:
+            self.move_right()
+        elif m == moves.up:
+            self.move_up()
+        elif m == moves.down:
+            self.move_down()
+        else:
+            pass
+
+    def move_left_right(self, toLeft):
         if self.state == State.standing:
-            delta = -1*self.height
-            if factor == -1:
+            delta = -self.height
+            if toLeft == -1:
                 delta = 1
-            for i in range(1, self.height + 1):
-                if not matrix[self.location[0]][self.location[1] - i*factor].trigger(False):
-                    return False
-            self.location = [self.location[0], self.location[1] + delta]
+            self.location[1] += delta
             self.state = State.horizontal
-            return True
+
         elif self.state == State.horizontal:
             delta = -1
-            if factor == -1:
+            if toLeft == -1:
                 delta = self.height
-            if not matrix[self.location[0]][self.location[1] + delta].trigger(True):
-                return False
-            self.location = [self.location[0], self.location[1] + delta]
+            self.location[1] += delta
             self.state = State.standing
-            return True
+
         elif self.state == State.vertical:
-            for i in range(self.height):
-                if not matrix[self.location[0] - i][self.location[1] - 1*factor].trigger(False):
-                    return False
-            self.location = [self.location[0], self.location[1] - 1*factor]
-            return True
+            self.location[1] -= toLeft
             # unchanged state, still vertical
 
-    def move_up_down(self, matrix, factor):
+        else:
+            pass
+
+    def move_up_down(self, toUp):
         if self.state == State.standing:
-            delta = -1*self.height
-            if factor == -1:
+            delta = -self.height
+            if toUp == -1:
                 delta = 1
-            for i in range(1, self.height + 1):
-                if not matrix[self.location[0] - i*factor][self.location[1]].trigger(False):
-                    return False
-            self.location = [self.location[0] + delta][self.location[1]]
+            self.location[0] += delta
             self.state = State.vertical
+
         elif self.state == State.horizontal:
-            for i in range(self.height):
-                if not matrix[self.location[0] - 1*factor][self.location[1] + i].trigger(False):
-                    return False
-            self.location[0] = self.location[0] - 1*factor
-            return True
-            # unchanged state, still horizontal
+            self.location[0] -= toUp
+
         elif self.state == State.vertical:
             delta = 1
-            if factor == -1:
-                delta = -1*self.height
-            if matrix[self.location[0] - delta][self.location[1]].trigger(False):
-            for i in range(self.height):
-                matrix[self.location[0] + i][self.location[1]] = 0
-            self.location[0] = self.location[0] - delta
+            if toUp == -1:
+                delta = -self.height
+            self.location[0] -= delta
             self.state = State.standing
 
-    def move_left(self, matrix):
-        return self.move_left_right(matrix, 1)
+        else:
+            pass
 
-    def move_right(self, matrix):
-        return self.move_left_right(matrix, -1)
+    def move_left(self):
+        self.move_left_right(1)
 
-    def move_up(self, matrix):
-        return self.move_up_down(matrix, 1)
+    def move_right(self):
+        self.move_left_right(-1)
 
-    def move_down(self, matrix):
-        return self.move_up_down(matrix, -1)
+    def move_up(self):
+        self.move_up_down(1)
 
+    def move_down(self):
+        self.move_up_down(-1)
+
+    """
     def can_move_left_right(self, matrix, factor):
         if self.state == State.standing:
             for i in range(1, self.height + 1):
@@ -147,4 +191,4 @@ class Block:
 
     def can_move_down(self, matrix):
         return self.can_move_up_down(matrix, -1)
-
+    """

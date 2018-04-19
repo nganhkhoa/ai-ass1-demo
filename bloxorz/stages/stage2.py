@@ -30,9 +30,9 @@ def stage2():
               bridge_left[0], bridge_left[1], Tile(), Tile(), Tile(), Tile(),
               bridge_right[0], bridge_right[1], Tile(), Tile(), Tile()]
 
-    arr[5] = [Tile(), Tile(), Tile(), Tile(),
+    arr[5] = [Tile(), Tile(), Tile(), Tile(), None, None,
               Tile(), Tile(), Tile(), Tile(),
               None, None, None, None, None, None]
 
-    s = Stage('stage2', arr, 1, 4)
+    s = Stage('stage2', arr, 4, 1)
     s.save('stage2')
