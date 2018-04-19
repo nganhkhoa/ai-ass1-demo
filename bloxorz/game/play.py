@@ -4,7 +4,7 @@ from bloxorz.game.Stage import Stage
 from bloxorz.game.Tile import Tile
 from bloxorz.game.TileType import TileType as T
 
-from bloxorz.solver.State import State
+from bloxorz.solver.State import State, move
 
 from bloxorz.game.mode import mode as m
 from bloxorz.solver.Solver import Solver
@@ -57,7 +57,7 @@ def play(f, mode=None):
                 break
 
             try:
-                s.move(key)
+                move(s, key)
             except Exception as e:
                 input("--- Invalid move, revert\n--- {}".format(e))
 
