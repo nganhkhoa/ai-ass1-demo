@@ -50,7 +50,7 @@ class Tile:
 
     def trigger(self, standing):
         t = this.type
-        if t
+
         if t == 1:
             # a soft button
             if t == T.soft_button:
