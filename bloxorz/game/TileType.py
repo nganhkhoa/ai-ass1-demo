@@ -9,6 +9,10 @@ class TileType(IntEnum):
     soft_special_button = auto()
     hard_special_button = auto()
 
+    # button has toggle and a open/close list
+    soft_hell_button = auto()
+    hard_hell_button = auto()
+
     normal = auto()
     goal = auto()
     split = auto()
