@@ -6,8 +6,8 @@ from bloxorz.game.TileType import TileType as T
 
 
 def stage12():
-    H1 = Tile(T.bridge, False)
-    H2 = Tile(T.bridge, False)
+    H1 = [Tile(T.bridge, False)]
+    H2 = [Tile(T.bridge, False)]
 
     arr = [[] for i in range(10)]  # type: List[List[Tile]]
 
@@ -18,13 +18,13 @@ def stage12():
     arr[1] += [Tile(), Tile(), Tile(), None, None, Tile(), Tile(), Tile()]
 
     arr[2] = [None for i in range(5)]
-    arr[2] += [Tile(), Tile(T.hard_button, H1), Tile(), Tile(), Tile(), Tile(), Tile(), H1]
+    arr[2] += [Tile(), Tile(T.hard_button, H1), Tile(), Tile(), Tile(), Tile(), Tile(), H1[0]]
 
     arr[3] = [None, None, None]
     arr[3] += [Tile() for i in range(5)]
     arr[3] += [None, None, Tile(), Tile()]
 
-    arr[4] = [None, None, None, Tile(), Tile(T.goal), Tile(), H2]
+    arr[4] = [None, None, None, Tile(), Tile(T.goal), Tile(), H2[0]]
     arr[4] += [None for i in range(3)]
     arr[4] += [Tile(), Tile()]
 
