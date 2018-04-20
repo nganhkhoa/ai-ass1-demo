@@ -29,11 +29,11 @@ def stage21():
 
     arr[5] = [None, Tile(), Tile()]
     arr[5] += [None for i in range(5)]
-    arr[5] += [Tile(T.hard_button, HB), Tile(), Tile(), Tile(), Tile(), Tile(T.goal), Tile()]
+    arr[5] += [Tile(T.hard_button, [HB]), Tile(), Tile(), Tile(), Tile(), Tile(T.goal), Tile()]
 
     arr[6] = [None, None, Tile()]
     arr[6] += [None for i in range(5)]
-    arr[6] += [Tile(T.hard_button, HB1), Tile(), None, None, Tile(), Tile(), Tile()]
+    arr[6] += [Tile(T.hard_button, [HB1]), Tile(), None, None, Tile(), Tile(), Tile()]
 
     arr[7] = [None, None, Tile(), Tile(), Tile(), HB1, None, None, Tile(), Tile()]
 

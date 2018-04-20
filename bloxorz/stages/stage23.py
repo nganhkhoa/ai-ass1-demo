@@ -19,7 +19,7 @@ def stage23():
     arr[0] += [None for i in range(8)]
     arr[0] += [Tile(), Tile(), Tile()]
 
-    arr[1] = [None, Tile(), Tile(T.hard_button, SB3, []), Tile()]
+    arr[1] = [None, Tile(), Tile(T.hard_button, [SB3], []), Tile()]
     arr[1] += [None for i in range(8)]
     arr[1] += [Tile(), Tile(T.soft_button, B2, ), Tile()] #!!!!!!!!!!!!open B2, toggle SB1
 
@@ -35,7 +35,7 @@ def stage23():
                 Tile(), None, None, Tile(), Tile(), Tile(), 
                 None, None, None, None, Tile()]
 
-    arr[5] = [Tile(T.soft_button, SB2, B2), None, None, None, 
+    arr[5] = [Tile(T.soft_button, [SB2], B2), None, None, None, 
                 Tile(), None, Tile(T.soft_ground), Tile(T.soft_ground), Tile(T.soft_ground), 
                 None, None, None, None, Tile()]
 

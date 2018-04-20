@@ -17,7 +17,7 @@ def stage25():
 
     arr[1] = [None, None, Tile(), Tile(), Tile()]
 
-    arr[2] = [None, None, Tile(), Tile(), Tile(T.soft_button)]
+    arr[2] = [None, None, Tile(), Tile(), Tile(T.soft_button, [B1[0], B1[1], B3[0], B3[1]])]
     arr[2] += [None for i in range(5)]
     arr[2] += [Tile(), Tile(), Tile()]
 
@@ -31,9 +31,9 @@ def stage25():
 
     arr[6] = [Tile(), Tile(), Tile(T.hard_button, B1, []), Tile(), B2[0], B2[1], Tile(), Tile()]
 
-    arr[7] = [Tile(), Tile(), B, None, None, None, Tile(), Tile()]
+    arr[7] = [Tile(), Tile(), Tile(), None, None, None, Tile(), Tile()]
 
-    arr[8] = [Tile(), Tile(), B, None, None, None, Tile(), Tile(), Tile(T.soft_button, SB1, B2)]
+    arr[8] = [Tile(), Tile(), Tile(), None, None, None, Tile(), Tile(), Tile(T.soft_button, [SB1], B2)]
     arr[8] += [Tile() for i in range(5)]
 
     arr[9] = [None for i in range(11)]
