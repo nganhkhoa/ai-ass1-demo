@@ -1,6 +1,11 @@
 from bloxorz.stages.GenStage import GenStage
 from bloxorz.game.play import play
-from bloxorz.game.mode import mode as m
+from bloxorz.solver.mode import mode as m
+from bloxorz.common.getKey import getKey
+from bloxorz.common.moves import moves
+from bloxorz.common.menu import menu
+
+
 
 def auto_play():
     try:
@@ -19,16 +24,16 @@ def auto_play():
     elif choice == 0:
         pass
     else:
-        print("\033[1H", end="")
-        print("\033[J", end="")
-        print("Choose your algorithm")
-        print("1. BFS")
-        print("2. DFS")
-        print("3. Hill clibming")
-        print("4. Simulated Annealing")
-        print("5. Best First Search")
-        mode = m(int(input("$>> ")))
+        choice = menu("Choose your algorithm\n! as not complete",
+                    ["BFS (!)",
+                    "DFS (!)",
+                    "Hill clibming (!)",
+                    "Simulated Annealing (!)",
+                    "Best First Search (!)"])
+
+        mode = m(int(choice))
         play("stage{}".format(choice), mode)
+        input()
 
 
 def manual_play():
@@ -52,34 +57,22 @@ def manual_play():
 
 
 if __name__ == "__main__":
-    while True:
-        print("\033[1H", end="")
-        print("\033[J", end="")
-        print("1. Generate stages")
-        print("2. Auto Play stage")
-        print("3. Manual Play stage")
-        print("4. Exit")
-
-        try:
-            choice = int(input("$>> "))
-        except ValueError:
-            print("--- A number is required")
-            exit(-1)
+    while (True):
+        choice = menu("Welcome to Bloxorz",
+                    ["Generate Stages",
+                    "AI Play",
+                    "Manual Play",
+                    "Exit"])
 
         if choice == 4:
-            print(":( See you again")
-            exit(0)
+            exit()
 
         if choice == 1:
             GenStage()
             input()
-            continue
 
-        if choice == 2:
+        elif choice == 2:
             auto_play()
-            input()
-            continue
-
-        if choice == 3:
+        
+        elif choice == 3:
             manual_play()
-            continue

@@ -17,7 +17,7 @@ def getKey():
     elif k == ' ':
         return ' '
 
-    elif k == '\n':
+    elif ord(k) == 13:
         return '\n'
 
     input()
