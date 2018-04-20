@@ -24,7 +24,7 @@ def stage17():
 
     arr[3] = [Tile(), Tile(), Tile()]
     arr[3] += [None for i in range(9)]
-    arr[3] += [Tile(T.hard_button, [], HB3), Tile(T.hard_button, HB3, []), Tile()]
+    arr[3] += [Tile(T.hard_special_button, [], HB3), Tile(T.hard_special_button, HB3, []), Tile()]
 
     arr[4] = [Tile(), Tile(), Tile()]
     
@@ -32,18 +32,18 @@ def stage17():
 
     arr[6] = [Tile(), Tile(), Tile(), 
                 None, None, None, HB3, 
-                Tile(), Tile(), Tile(), Tile(), Tile(), Tile(T.hard_button, HB1, [])]
+                Tile(), Tile(), Tile(), Tile(), Tile(), Tile(T.hard_special_button, HB1, [])]
     
     arr[7] = [Tile() for i in range(8)]
     arr[7] += [SB, None, None, Tile(), Tile()]
 
-    arr[8] = [Tile(), Tile(T.soft_button, SB, []), Tile()]
+    arr[8] = [Tile(), Tile(T.soft_special_button, SB, []), Tile()]
     arr[8] += [None for i in range(8)]
     arr[8] += [Tile(), Tile()]
 
     arr[9] = [Tile(), Tile(), Tile()]
     arr[9] += [None for i in range(8)]
-    arr[9] += [Tile(), Tile(T.hard_button, HB2, SB)]
+    arr[9] += [Tile(), Tile(T.hard_special_button, HB2, SB)]
 
     s = Stage('stage17', arr, 1, 1)
     s.save('stage17')

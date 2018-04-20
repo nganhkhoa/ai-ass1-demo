@@ -33,7 +33,7 @@ def stage19():
 
     arr[5] = [Tile(), Tile(), Tile(), 
                 None, None, Tile(), Tile(), SB1[0], SB1[1], 
-                Tile(), Tile(T.soft_button, [], SB2), Tile(), Tile(), Tile(), Tile()]
+                Tile(), Tile(T.soft_special_button, [], SB2), Tile(), Tile(), Tile(), Tile()]
 
     arr[6] = [Tile(), Tile(T.goal), Tile(), None, None, Tile(), Tile()]
 
@@ -43,7 +43,7 @@ def stage19():
 
     arr[9] = [None, Tile(), SB2[0], SB2[1]]
     arr[9] += [Tile() for i in range(6)]
-    arr[9] += [Tile(T.soft_button, SB2, []), Tile(), Tile(), Tile()]
+    arr[9] += [Tile(T.soft_special_button, SB2, []), Tile(), Tile(), Tile()]
 
     s = Stage('stage19', arr, 0, 1)
     s.save('stage19')
