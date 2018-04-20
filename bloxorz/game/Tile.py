@@ -54,29 +54,6 @@ class Tile:
 
         t = this.type
 
-<<<<<<< HEAD
-        if t == 1:
-            # a soft button
-            if t == T.soft_button:
-                for tile in this.toggle:
-                    tile.valid = not tile.valid
-            else:
-                for tile in this.open:
-                    tile.valid = True
-                for tile in this.close:
-                    tile.valid = False
-
-        elif t == 2 and standing:
-            # a hard button
-            if t == T.hard_button:
-                for tile in this.toggle:
-                    tile.valid = not tile.valid
-            else:
-                for tile in this.open:
-                    tile.valid = True
-                for tile in this.close:
-                    tile.valid = False
-=======
         if t == T.soft_button:
             for tile in this.toggle:
                 tile.valid = not tile.valid
@@ -96,7 +73,6 @@ class Tile:
                 tile.valid = True
             for tile in this.close:
                 tile.valid = False
->>>>>>> c0225a81f8c64719f8a24e21b822f44149c0732f
 
         elif t == T.soft_ground and standing:
             # watch out, you'll fall
