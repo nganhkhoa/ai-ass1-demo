@@ -6,7 +6,7 @@ from bloxorz.game.TileType import TileType as T
 
 
 def stage18():
-    HB = Tile(T.bridge, False)
+    HB = [Tile(T.bridge, False)]
     SB2 = [Tile(T.bridge, False), Tile(T.bridge, False)]
     SB3 = [Tile(T.bridge, False), Tile(T.bridge, False)]
     SB4 = [Tile(T.bridge, False), Tile(T.bridge, False)]
@@ -19,14 +19,14 @@ def stage18():
     arr[1] = [Tile(), Tile(), Tile(T.soft_button, [], [SB3[0], SB3[1], SB4[0], SB4[1]]), 
                 Tile(), None, None, None, Tile()]
 
-    arr[2] [Tile(), Tile(), Tile(), Tile(), Tile(), None, None, Tile()]
+    arr[2] = [Tile(), Tile(), Tile(), Tile(), Tile(), None, None, Tile()]
 
     arr[3] = [Tile(), Tile(T.soft_button, [], SB2)]
     arr[3] += [Tile() for i in range(6)]
     arr[3] += [SB2[0], SB2[1], Tile(), Tile(), SB3[0], SB3[1], Tile()]
 
     arr[4] = [Tile() for i in range(5)]
-    arr[4] += [HB, None, None, Tile(), None, None, None, Tile()]
+    arr[4] += [HB[0], None, None, Tile(), None, None, None, Tile()]
 
     arr[5] = [Tile(), Tile(), Tile(T.soft_button, [], [SB3[0], SB3[1], SB4[0], SB4[1]]), 
                 Tile(), None, None, None, None, Tile(), None, None, None, Tile()]

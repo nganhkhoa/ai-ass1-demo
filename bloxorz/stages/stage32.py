@@ -6,7 +6,9 @@ from bloxorz.game.TileType import TileType as T
 
 
 def stage32():
-    arr = [[] for i in range(0)]  # type: List[List[Tile]]
+    arr = [[] for i in range(9)]  # type: List[List[Tile]]
 
-    s = Stage('stage32', arr, 1, 1)
+    arr[0] = []
+
+    s = Stage('stage32', arr, 6, 10)
     s.save('stage32')

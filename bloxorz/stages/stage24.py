@@ -20,10 +20,10 @@ def stage24():
     arr[1] += [Tile() for i in range(7)]
     arr[1] += [Tile(T.hard_button, B1, []), Tile(), Tile(T.split, [6,5,6,7])]
 
-    arr[2] = [None, Tile(), B1[0], B1[1], Tile(), Tile(T.hard_button, SB2, []), Tile(), 
+    arr[2] = [None, Tile(), B1[0], B1[1], Tile(), Tile(T.hard_button, [SB2], []), Tile(), 
                 None, None, None, Tile(), Tile(), Tile(), Tile()]
 
-    arr[3] = [Tile(T.hard_button, SB1, []), Tile(), None, None, Tile(), Tile()]
+    arr[3] = [Tile(T.hard_button, [SB1], []), Tile(), None, None, Tile(), Tile()]
     arr[3] += [None for i in range(6)]
     arr[3] += [Tile()]
 
