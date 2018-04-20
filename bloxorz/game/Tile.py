@@ -2,32 +2,32 @@ from .TileType import TileType as T
 
 
 class Tile:
-    def __init__(this, t=T.normal, info=None, others=None, extra=None):
-        this.type = t
+    def __init__(self, t=T.normal, info=None, others=None, extra=None):
+        self.type = t
 
         if t == T.bridge:
-            this.valid = info
+            self.valid = info
 
         elif t == T.split:
-            this.split_place = info  # [x,y,x,y]
+            self.split_place = info  # [x,y,x,y]
 
         elif t == T.soft_button or t == T.hard_button:
-            this.toggle = info
+            self.toggle = info
 
         elif t == T.soft_special_button or t == T.hard_special_button:
-            this.open = info
-            this.close = others
+            self.open = info
+            self.close = others
 
         elif t == T.soft_hell_button or t == T.hard_hell_button:
-            this.toggle = info
-            this.open = others
-            this.close = extra
+            self.toggle = info
+            self.open = others
+            self.close = extra
 
         else:
             pass
 
-    def __repr__(this):
-        t = this.type
+    def __repr__(self):
+        t = self.type
         if t == T.soft_button or \
            t == T.soft_special_button or \
            t == T.soft_hell_button:
@@ -41,7 +41,7 @@ class Tile:
         elif t == T.soft_ground:
             return "\033[31;41m \033[0m"
 
-        elif t == T.bridge and this.valid:
+        elif t == T.bridge and self.valid:
             return "\033[33;43m \033[0m"
 
         elif t == T.bridge:
@@ -56,64 +56,64 @@ class Tile:
         else:
             return "\033[37;47m \033[0m"
 
-    def setValid(this, v):
-        this.valid = v
+    def setValid(self, v):
+        self.valid = v
 
-    def getValid(this):
-        return this.valid
+    def getValid(self):
+        return self.valid
 
-    def isGoal(this):
-        return this.type == T.goal
+    def isGoal(self):
+        return self.type == T.goal
 
-    def trigger(this, standing):
+    def trigger(self, standing):
 
-        t = this.type
+        t = self.type
 
         if t == T.soft_button:
-            for tile in this.toggle:
+            for tile in self.toggle:
                 tile.valid = not tile.valid
 
         elif t == T.soft_special_button:
-            for tile in this.open:
+            for tile in self.open:
                 tile.valid = True
-            for tile in this.close:
+            for tile in self.close:
                 tile.valid = False
 
         elif t == T.soft_hell_button:
-            for tile in this.toggle:
+            for tile in self.toggle:
                 tile.valid = not tile.valid
-            for tile in this.open:
+            for tile in self.open:
                 tile.valid = True
-            for tile in this.close:
+            for tile in self.close:
                 tile.valid = False
 
         elif t == T.hard_button and standing:
-            for tile in this.toggle:
+            for tile in self.toggle:
                 tile.valid = not tile.valid
 
         elif t == T.hard_special_button and standing:
-            for tile in this.open:
+            for tile in self.open:
                 tile.valid = True
-            for tile in this.close:
+            for tile in self.close:
                 tile.valid = False
 
         elif t == T.hard_hell_button and standing:
-            for tile in this.toggle:
+            for tile in self.toggle:
                 tile.valid = not tile.valid
-            for tile in this.open:
+            for tile in self.open:
                 tile.valid = True
-            for tile in this.close:
+            for tile in self.close:
                 tile.valid = False
 
         elif t == T.soft_ground and standing:
             # watch out, you'll fall
             raise Exception("Fall")
 
-        elif t == T.bridge and this.valid == False:
+        elif t == T.bridge and self.valid == False:
             raise Exception("HiddenBridge")
 
         elif t == T.split:
-            return this.split_place
+            return self.split_place
 
         else:
             pass

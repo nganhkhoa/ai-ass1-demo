@@ -1,9 +1,8 @@
 from typing import List
 
 from bloxorz.game.Stage import Stage
-# from bloxorz.solver.Blox import Blox
 from bloxorz.solver.Block import Block
-from bloxorz.solver.moves import moves
+from bloxorz.common.moves import moves
 
 
 def getIdx(blox):
@@ -87,9 +86,9 @@ class State:
         self.start = [s.start_x, s.start_y]
         self.moves = []  # type: List[moves]
 
-    def __repr__(this):
-        idx1, idx2 = getIdx(this.blox)
-        if this.selection == 2:
+    def __repr__(self):
+        idx1, idx2 = getIdx(self.blox)
+        if self.selection == 2:
             # turn bold mode for idx2
             # thus swap them
             idx1, idx2 = idx2, idx1
@@ -97,9 +96,9 @@ class State:
 
         # print(idx1)
         # print(idx2)
-        # print(this.blox[0].state)
+        # print(self.blox[0].state)
 
-        for line in this.board:
+        for line in self.board:
             j = 0
             for tile in line:
                 if i == idx1[0] and j == idx1[1]:
@@ -118,68 +117,68 @@ class State:
             i += 1
         return ""
 
-    def isGoal(this):
-        if not this.blox[0].standing():
+    def isGoal(self):
+        if not self.blox[0].standing():
             return False
 
-        st_blk = this.blox[0].getIndex()
+        st_blk = self.blox[0].getIndex()
 
-        return this.board[st_blk[0]][st_blk[1]].isGoal()
+        return self.board[st_blk[0]][st_blk[1]].isGoal()
 
-    def isBegin(this):
-        if not this.blox[0].standing():
+    def isBegin(self):
+        if not self.blox[0].standing():
             return False
 
-        st_blk = this.blox[0].getIndex()
+        st_blk = self.blox[0].getIndex()
 
-        return st_blk[0] == this.start[0] and st_blk[1] == this.start[1]
+        return st_blk[0] == self.start[0] and st_blk[1] == self.start[1]
 
 
     def getAll(self):
         return self.board, self.blox[0].getIndex(), self.blox[0].active()
 
-    def getBoard(this):
-        return this.board
+    def getBoard(self):
+        return self.board
 
-    def getIndex(this):
-        return this.blox[0].index()
+    def getIndex(self):
+        return self.blox[0].index()
 
-    def isSplit(this):
-        return this.blox[0].isSplit()
+    def isSplit(self):
+        return self.blox[0].isSplit()
 
-    def getActiveBlock(this):
-        return this.blox[this.selection - 1].getIndex()
+    def getActiveBlock(self):
+        return self.blox[self.selection - 1].getIndex()
 
-    def setActiveBlock(this, b):
-        this.selection = b
+    def setActiveBlock(self, b):
+        self.selection = b
 
-    def toggleActive(this):
-        this.selection = 2 if this.selection == 1 else 1
+    def toggleActive(self):
+        self.selection = 2 if self.selection == 1 else 1
 
-    def join(this):
-        if not this.isSplit():
+    def join(self):
+        if not self.isSplit():
             return
 
-        idx1, idx2 = getIdx(this.blox)
+        idx1, idx2 = getIdx(self.blox)
 
         if idx1[0] == idx2[0]:
             if abs(idx1[1] - idx2[1]) == 1:
                 if idx1[1] > idx2[1]:
-                    this.blox[0].join(moves.left)
-                    this.blox[0].location[1] -= 1
+                    self.blox[0].join(moves.left)
+                    self.blox[0].location[1] -= 1
                 else:
-                    this.blox[0].join(moves.right)
-                this.blox[1] = None
-                this.selection = 1
+                    self.blox[0].join(moves.right)
+                self.blox[1] = None
+                self.selection = 1
                 return
 
         if idx1[1] == idx2[1]:
             if abs(idx1[0] - idx2[0]) == 1:
                 if idx1[0] > idx2[0]:
-                    this.blox[0].join(moves.up)
-                    this.blox[0].location[0] -= 1
+                    self.blox[0].join(moves.up)
+                    self.blox[0].location[0] -= 1
                 else:
-                    this.blox[0].join(moves.down)
-                this.blox[1] = None
-                this.selection = 1
+                    self.blox[0].join(moves.down)
+                self.blox[1] = None
+                self.selection = 1
                 return

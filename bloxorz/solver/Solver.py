@@ -6,49 +6,49 @@
 from typing import List
 
 from bloxorz.solver.State import State
-from bloxorz.game.mode import mode
+from bloxorz.solver.mode import mode
 
-from .BFS import BFS
-from .DFS import DFS
-from .HILL import HILL
-from .ANNEALING import ANNEALING
-from .BEST import BEST
+from bloxorz.solver.BFS import BFS
+from bloxorz.solver.DFS import DFS
+from bloxorz.solver.HILL import HILL
+from bloxorz.solver.ANNEALING import ANNEALING
+from bloxorz.solver.BEST import BEST
 
 
 class Solver:
-    def __init__(this, s: State, m: mode):
-        this.queue = [s]
-        this.mode = m
-        this.goal = None
+    def __init__(self, s: State, m: mode):
+        self.queue = [s]
+        self.mode = m
+        self.goal = None
 
-    def solve(this):
-        if this.mode == mode.bfs:
+    def solve(self):
+        if self.mode == mode.bfs:
             print("[+] Solving with bfs now")
-            BFS(this)
+            BFS(self)
 
-        elif this.mode == mode.dfs:
+        elif self.mode == mode.dfs:
             print("[+] Solving with dfs now")
-            DFS(this)
+            DFS(self)
 
-        elif this.mode == mode.hill:
+        elif self.mode == mode.hill:
             print("[+] Solving with hill climbing now")
-            HILL(this)
+            HILL(self)
 
-        elif this.mode == mode.annealing:
+        elif self.mode == mode.annealing:
             print("[+] Simulated Annealing?")
-            ANNEALING(this)
+            ANNEALING(self)
 
-        elif this.mode == mode.best:
+        elif self.mode == mode.best:
             print("[+] Someone says best first?")
-            BEST(this)
+            BEST(self)
 
         else:
             print("[?] LOL what algorithm")
 
-    def __repr__(this):
-        if this.goal is not None:
+    def __repr__(self):
+        if self.goal is not None:
             print("[+] I've found a way:")
-            print(this.goal.moves)
+            print(self.goal.moves)
             return ""
         else:
             return "--- Sorry, I couldn't do it"

@@ -1,6 +1,6 @@
 from enum import Enum
 
-from bloxorz.solver.moves import moves
+from bloxorz.common.moves import moves
 
 
 class State(enumerate):

@@ -6,14 +6,14 @@ import pickle
 
 
 class Stage():
-    def __init__(this, name, arr: [Tile], x, y):
-        this.name = name
-        this.board = arr
-        this.start_x = x
-        this.start_y = y
+    def __init__(self, name, arr: [Tile], x, y):
+        self.name = name
+        self.board = arr
+        self.start_x = x
+        self.start_y = y
 
-    def __repr__(this):
-        return this.name
+    def __repr__(self):
+        return self.name
 
-    def save(this, f):
-        pickle.dump(this, open("./raw/{}".format(f), "wb"))
+    def save(self, f):
+        pickle.dump(self, open("./raw/{}".format(f), "wb"))

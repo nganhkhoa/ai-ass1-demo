@@ -1,5 +1,6 @@
-from bloxorz.solver.moves import moves
+from bloxorz.common.moves import moves
 from bloxorz.solver.State import move
+
 from queue import Queue
 from copy import deepcopy
 

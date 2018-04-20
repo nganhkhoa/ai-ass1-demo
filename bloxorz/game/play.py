@@ -1,13 +1,8 @@
 from bloxorz.stages.GenStage import GenStage
-
-from bloxorz.game.Stage import Stage
-from bloxorz.game.Tile import Tile
-from bloxorz.game.TileType import TileType as T
-from bloxorz.game.mode import mode as m
-
+from bloxorz.solver.mode import mode as m
 from bloxorz.solver.State import State, move
 from bloxorz.solver.Solver import Solver
-from bloxorz.solver.moves import moves
+from bloxorz.common.getKey import getKey
 
 import pickle
 import click
@@ -26,24 +21,6 @@ def load(f):
             exit(-2)
     # print(s)
     return s
-
-
-def getKey():
-    k = click.getchar()
-
-    if k == '\033[A':
-        return moves.up
-    elif k == '\033[B':
-        return moves.down
-    elif k == '\033[C':
-        return moves.right
-    elif k == '\033[D':
-        return moves.left
-
-    elif k == ' ':
-        return ' '
-
-    input()
 
 
 def play(f, mode=None):
@@ -85,6 +62,7 @@ def play(f, mode=None):
                     print("\033[1H", end="")
                     print("\033[J", end="")
                     print(s)
+                    print("[+] Make a move")
                     key = getKey()
 
             except KeyboardInterrupt:
