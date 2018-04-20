@@ -46,7 +46,6 @@ def getKey():
     input()
 
 
-
 def play(f, mode=None):
     stage = load(f)
     init = State(stage)
