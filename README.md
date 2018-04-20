@@ -2,11 +2,16 @@
 
 Using console by the way
 
+This project is only tested on Linux environment, Windows is not guaranteed to work fine.
+
 ## To get things setup
 
 ```bash
+pip install click
 mkdir raw
-echo '1' | python main.py
+python main.py
+
+and choose generate stages
 ```
 
 ## The file structure
@@ -22,7 +27,6 @@ echo '1' | python main.py
 |---|---game/
 |---|---|---play.py
 |---|---|---mode.py
-|---|---|---Block.py
 |---|---|---Stage.py
 |---|---|---Tile.py
 |---|---|---TileType.py
@@ -31,16 +35,11 @@ echo '1' | python main.py
 |---|---|---Solver.py
 |---|---|-------algorithm implement files
 |---|---|---State.py
+|---|---|---Block.py
 |---|---stages/
 |---|---|---GenStage.py
 |---|---|---stages.py
 ```
-
-The game folder has a structure for all the components of the game, how the Tile is structure, how the Block will move,...
-
-The stages folder has a collection of Stages in the main 33 levels of Bloxorz hard coded in using the structure describe in the game folder.
-
-The solver will hold a collection of algorithm to solve the game, the solver includes structure of State describe in the upcomming parts.
 
 ## Game Structure
 
@@ -57,7 +56,7 @@ A tile is a square in the game. There are many types of tile.
 
 A button can be divided in many ways, in one way, the soft and hard one. If a button is a soft one, it can be pressed if one block is lay on top, while a hard one will need 2 blocks, standing block.
 
-In another way to divide, a button can be a toggle button to bridges, or will open a set of bridges and close another set of bridges.
+In another way to divide, a button can be a toggle button to bridges, or will open a set of bridges and close another set of bridges, or a combination of three.
 
 After inspecting those types, I came up with an enumeration system:
 
@@ -72,6 +71,8 @@ enum class TileType : int {
     hard_button,
     soft_special_button,
     hard_special_button
+    soft_hell_button,
+    hard_hell_button
 };
 ```
 
@@ -85,9 +86,9 @@ class Tile {
     bool valid;         // if standing on this tile is ok
     int split_place[4]; // place after split
 
-    Tile** toggle;       // Tiles to toggle
-    Tile** open;         // Tiles to change to open
-    Tile** close;        // Tiles to change to close
+    Tile*[] toggle;       // Tiles to toggle
+    Tile*[] open;         // Tiles to change to open
+    Tile*[] close;        // Tiles to change to close
 };
 ```
 
@@ -105,21 +106,24 @@ A button, however is harder to construct, since we need a small constructor that
 // c++
 
 // making a button which will toggle on active
-Tile(TileType.soft_button, Tile** bridges);
+Tile(TileType.soft_button, Tile*[] toggle);
 
 // making a button which will open gates only
-Tile(TileType.soft_special_button, Tile** bridges, NULL);
+Tile(TileType.soft_special_button, Tile*[] open, NULL);
 
 // making a button which will close gates only
-Tile(TileType.soft_special_button, NULL, Tile** bridges);
+Tile(TileType.soft_special_button, NULL, Tile*[] close);
 
 // making a button which will open and closes set of bridges
-Tile(TileType.soft_special_button, Tile** bridges1, Tile** bridges2);
+Tile(TileType.soft_special_button, Tile*[] open, Tile*[] close);
+
+// making a button which will open and closes set of bridges but also toggle some
+Tile(TileType.soft_special_button, Tile*[] toggle, Tile*[] open, Tile*[] close);
 
 // the same for hard button
 ```
 
-Take close look that the bridges are given as `Tile**`. This is to make sure that this works even if more than 1 button point to the same bridge.
+Take close look that the bridges are given as `Tile*[]`. This is to make sure that this works even if more than 1 button point to the same bridge.
 
 ### Stage
 
@@ -131,12 +135,12 @@ Given as follows:
 // c++
 class Stage {
   public:
-    Tile** board;
+    Tile[][] board;  // a 2 dimension matrix Tile
     int _x;
     int _y;
     char* name;
 
-    Stage(char* name, Tile** b, int x, int y);
+    Stage(char* name, Tile[][] b, int x, int y);
     void save(char* filename);
 }
 ```
@@ -145,7 +149,9 @@ This class is used only to create binary files of stages and load to a State.
 
 ### Block
 
-`To be updated`
+The Block is the core of whole game. Everything happens around block. For distinction, we will call it a Blox (form Bloxorz) if it's comprised of two Blocks. The Block by itself has only one index, the other index, we can calculate it through its state, standing or lying head North or lying head East.
+
+When a split call is made, the Block will change its state to neutral. Thus we need another block to represent the splited Block. The Blox is implemented in State as an array. With selection bit to choose which Block will be move when move is call.
 
 ## Solver Folder
 
@@ -156,10 +162,10 @@ A numeration on how to move
 ```c++
 // c++
 enum moves {
-    left,
-    right,
     up,
-    down
+    down,
+    right,
+    left
 };
 ```
 
@@ -170,36 +176,41 @@ This is the state to solve the game. A state is quite simple, just a board and a
 ```c++
 // c++
 class State {
-    Tile** board;
-    Block* block;
-
-    bool notValid() {
-        // check if the state is not good
-        // block is outside
-        // block is on an invalid tile
-        // block is stading on soft tile
-    }
+    Tile[][] board;
+    Block blox[2];
+    int selection = 1;
 
     void move(moves m) {
-        switch m {
-            // implement the move
-            // index and stuff
-            default:
-                break
-        };
-
-        if (this->notValid()) {
+        void* ret = NULL;
+        try {
+            ret = blox[selection - 1]->move(m);
+        }
+        catch(everything) {
             throw error;
         }
+
+        if (ret != NULL) {
+            // ret is now a index after split
+            blox[0]->split(ret);
+            // post process
+            // blox[1] = new Block(ret);
+        }
+
+        // try to join
+        // if not split, just return
+        // if not able to join, return
+        this->join();
     }
 };
 ```
 
-When implementing algorithm, just need to call `move(direction)` and it will check for you.
+When implementing algorithm, just need to call `move(direction)` and you're done. If when moving, an error occured (go out of board, standing in soft ground), it will throw and you can ignore the throw. The throw procedure is like a signal that a move is invalid.
 
 ### Solver
 
-A solver framework based on the strategy pattern, deppends on which mode we choose, it will run the algorithm. The solver main class stores the init state, the goal state if there's one and the algorithm mode to solve.
+The solver framework is based on the strategy pattern, deppends on which mode we choose, it will run the algorithm. The solver main class stores the init state, the goal state if there's one and the algorithm mode to solve. Futhermore, when creating states, an already existed state might be generated again and again. To prevent the problem describe, the solver class will store a list of State Character.
+
+The State Chracter is a string to defined in a STAGE that a STATE generated is unique. The character of a state is a sequence of these: the index of the two blocks, 
 
 When the solver call on solve, it will run the algorithm on itself. Then with the init state, you can create a queue and solve.
 
