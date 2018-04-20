@@ -6,7 +6,7 @@ from bloxorz.game.TileType import TileType as T
 
 
 def stage7():
-    B = Tile(T.bridge, False)
+    B = [Tile(T.bridge, False)]
 
     arr = [[] for i in range(8)]  # type: List[List[Tile]]
 
@@ -26,7 +26,7 @@ def stage7():
 
     arr[4] = [Tile(), Tile(), Tile()]
     arr[4] += [None for i in range(4)]
-    arr[4] += [Tile(), Tile(), Tile(T.hard_special_button, B), 
+    arr[4] += [Tile(), Tile(), Tile(T.hard_button, B), 
                 None, None, Tile(), Tile(), Tile()]
         
     arr[5] = [Tile(), Tile(), Tile()]
@@ -34,7 +34,7 @@ def stage7():
     arr[5] += [Tile(), Tile(), Tile(), 
                 None, None, Tile(), Tile(), Tile()]
 
-    arr[6] = [None, Tile(), Tile(), B, None, None, None, Tile()]
+    arr[6] = [None, Tile(), Tile(), B[0], None, None, None, Tile()]
 
     arr[7] = [None, None]
     arr[7] += [Tile() for i in range(6)]

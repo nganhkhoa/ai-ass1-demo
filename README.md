@@ -85,9 +85,9 @@ class Tile {
     bool valid;         // if standing on this tile is ok
     int split_place[4]; // place after split
 
-    Tile* toggle;       // Tiles to toggle
-    Tile* open;         // Tiles to change to open
-    Tile* close;        // Tiles to change to close
+    Tile** toggle;       // Tiles to toggle
+    Tile** open;         // Tiles to change to open
+    Tile** close;        // Tiles to change to close
 };
 ```
 
