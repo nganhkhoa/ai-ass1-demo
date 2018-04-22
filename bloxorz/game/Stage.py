@@ -5,7 +5,7 @@ from .Tile import Tile
 import pickle
 
 
-class Stage():
+class Stage:
     def __init__(self, name, arr: [Tile], x, y):
         self.name = name
         self.board = arr

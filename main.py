@@ -6,7 +6,6 @@ from bloxorz.common.moves import moves
 from bloxorz.common.menu import menu
 
 
-
 def auto_play():
     try:
         print("\033[1H", end="")
@@ -63,11 +62,10 @@ if __name__ == "__main__":
                     "AI Play",
                     "Manual Play",
                     "Exit"])
-
         if choice == 4:
             exit()
 
-        if choice == 1:
+        elif choice == 1:
             GenStage()
             input()
 

@@ -9,6 +9,7 @@ class State(enumerate):
     standing = 3
     neutral = 0
 
+
 class Block:
     splitting = False
 

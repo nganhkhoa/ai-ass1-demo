@@ -49,8 +49,8 @@ def play(f, mode=None):
                 break
 
             try:
-                # key = get_key()
-                # key = moves(int(input()))
+                 #key = get_key()
+                 #key = moves(int(input()))
 
                 print("[+] Make a move")
                 key = getKey()

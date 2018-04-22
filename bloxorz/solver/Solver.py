@@ -14,10 +14,12 @@ from bloxorz.solver.HILL import HILL
 from bloxorz.solver.ANNEALING import ANNEALING
 from bloxorz.solver.BEST import BEST
 
+import queue
 
 class Solver:
     def __init__(self, s: State, m: mode):
-        self.queue = [s]
+        self.queue = queue.Queue
+        self.queue.put(s)
         self.mode = m
         self.goal = None
 

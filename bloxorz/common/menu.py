@@ -3,6 +3,10 @@ from bloxorz.common.moves import moves
 
 
 def menu(title, selections, choice=1):
+    """
+
+    :rtype:
+    """
     while True:
         print("\033[1H", end="")
         print("\033[J", end="")

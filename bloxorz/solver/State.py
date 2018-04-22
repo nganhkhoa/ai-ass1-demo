@@ -3,9 +3,12 @@ from typing import List
 from bloxorz.game.Stage import Stage
 from bloxorz.solver.Block import Block
 from bloxorz.common.moves import moves
+from bloxorz.game.TileType import TileType as T
 
 
+# get index for all blocks in state (every block have single location)
 def getIdx(blox):
+    """
     idx1 = blox[0].getIndex()
     idx2 = [idx1[0], idx1[1]]
 
@@ -20,6 +23,25 @@ def getIdx(blox):
         # is spliting
         idx2 = blox[1].getIndex()
 
+    return idx1, idx2
+    """
+    idx1 = blox[0].getIndex()
+    idx2 = [-1, -1]
+    if blox[1] is not None:
+        idx2 = blox[1].getIndex()
+    return idx1, idx2
+
+
+# get index for single block, return location whole block on board
+def getIdx(block):
+    idx1 = block.getIndex()
+    idx2 = [idx1[0], idx1[1]]
+    if block.horizon():
+       idx2[1] += 1
+    elif block.vertical():
+       idx2[0] += 1
+    else:
+        pass
     return idx1, idx2
 
 
@@ -182,3 +204,16 @@ class State:
                 self.blox[1] = None
                 self.selection = 1
                 return
+
+
+def getTrace(board, blox):
+    idx1, idx2 = getIdx(blox)
+    trace = str(idx1[0]) + str(idx1[1]) + str(idx2[0]) + str(idx2[1])
+    for line in board:
+        for tile in line:
+            if tile is not None and tile.type == T.bridge:
+                if tile.getValid():
+                    trace += '1'
+                else:
+                    trace += '0'
+    return trace
