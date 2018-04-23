@@ -3,6 +3,7 @@ from bloxorz.solver.mode import mode as m
 from bloxorz.solver.State import State, move
 from bloxorz.solver.Solver import Solver
 from bloxorz.common.getKey import getKey
+from bloxorz.common.moves import moves
 
 import pickle
 import click
@@ -67,6 +68,9 @@ def play(f, mode=None):
 
             except KeyboardInterrupt:
                 break
+
+            if not isinstance(key, moves):
+                continue
 
             try:
                 move(s, key)
