@@ -38,5 +38,4 @@ def getKey():
     elif system() == "Darwin":
         pass
     else:
-        input(ord(k))
         pass
