@@ -61,12 +61,13 @@ def manual_play():
 
 if __name__ == "__main__":
     colorama.init()
+    choice = 1
     while (True):
         choice = menu("Welcome to Bloxorz",
                     ["Generate Stages",
                     "AI Play",
                     "Manual Play",
-                    "Exit"])
+                    "Exit"], choice)
 
         if choice == 4:
             exit()
