@@ -29,6 +29,7 @@ def play(f, mode=None):
     init = State(stage)
 
     if mode is None:
+        """
         print("Load moves files? Please enter file name")
         filename = input("$>> ")
 
@@ -36,6 +37,8 @@ def play(f, mode=None):
             pass
         else:
             input("Gaming mode, Ctrl+C to quit")
+        """
+        input("Welcome to stage: {}".format(init.name))
 
         s = init
         while True:
@@ -67,7 +70,9 @@ def play(f, mode=None):
                     key = getKey()
 
             except KeyboardInterrupt:
-                break
+                key = input("Quit now? (y/n) ")
+                if key == "y" or key == "Y":
+                    break
 
             if not isinstance(key, moves):
                 continue
