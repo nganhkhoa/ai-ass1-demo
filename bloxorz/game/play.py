@@ -86,3 +86,10 @@ def play(f, mode=None):
         problem = Solver(init, mode)
         problem.solve()
         print(problem)
+
+        k = input("Replay? (y/n) ")
+        if k == "y" or k == "Y":
+            print("Press right arrow to next move")
+            print("If no move left, press enter to exit")
+            click.getchar()
+            problem.replay()
