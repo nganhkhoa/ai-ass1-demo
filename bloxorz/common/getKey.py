@@ -6,13 +6,7 @@ from platform import system
 def getKey():
     k = click.getchar()
 
-    if k == ' ':
-        return ' '
-
-    elif ord(k) == 13:
-        return '\n'
-
-    elif system() == "Linux":
+    if system() == "Linux":
         if k == '\033[A':
             return moves.up
         elif k == '\033[B':
@@ -21,9 +15,16 @@ def getKey():
             return moves.right
         elif k == '\033[D':
             return moves.left
+        elif k == ' ':
+            return ' '
+        elif ord(k) == 13:
+            return '\n'
+
+        elif ord(k) == 3:
+            raise KeyboardInterrupt
 
         # linux needs this
-        input()
+        # input()
 
     elif system() == "Windows":
         if ord(k) == 72:
@@ -34,8 +35,13 @@ def getKey():
             return moves.right
         elif ord(k) == 75:
             return moves.left
+        elif k == ' ':
+            return ' '
+        elif ord(k) == 13:
+            return '\n'
 
     elif system() == "Darwin":
-        pass
-    else:
-        pass
+        if k == ' ':
+            return ' '
+        elif ord(k) == 13:
+            return '\n'
