@@ -102,6 +102,7 @@ def move(self, m):
 class State:
     def __init__(self, s: Stage):
         # do something to parse the stage to a state
+        self.name = s.name
         self.board = s.board
         self.blox = [Block(s.start_x, s.start_y), None]
         self.selection = 1
