@@ -18,11 +18,11 @@ def stage22():
     arr[1] += [None, None, Tile(), Tile(T.goal), Tile()]
 
     arr[2] = [Tile() for i in range(6)]
-    arr[2] += [Tile(T.soft_button, [], B1)]
+    arr[2] += [Tile(T.soft_special_button, [], B1)]
     arr[2] += [Tile() for i in range(7)]
 
     arr[3] = [Tile(), Tile(), Tile(), Tile(), 
-                Tile(T.soft_button, [], B1), None, None, 
+                Tile(T.soft_special_button, [], B1), None, None, 
                 Tile(), Tile(), Tile(), Tile(), Tile(), B1[1]]
 
     arr[4] = [Tile(), Tile(), Tile()]

@@ -16,7 +16,8 @@ def stage26():
     arr[0] += [Tile(T.split, [3,12,5,10])]
 
     arr[1] = [None for i in range(5)]
-    arr[1] += [Tile(), Tile(), Tile(T.soft_button, [], B1), Tile(), Tile(), Tile(), None, None, Tile()]
+    arr[1] += [Tile(), Tile(), Tile(T.soft_special_button, [], B1), 
+                Tile(), Tile(), Tile(), None, None, Tile()]
 
     arr[2] = [None for i in range(4)]
     arr[2] += [Tile() for i in range(7)]
@@ -33,7 +34,7 @@ def stage26():
     arr[6] += [None for i in range(4)]
     arr[6] += [Tile(), Tile(), Tile()]
 
-    arr[7] = [None, Tile(T.hard_button, B2, [])]
+    arr[7] = [None, Tile(T.hard_special_button, B2, [])]
     arr[7] += [None for i in range(4)]
     arr[7] += [Tile(), Tile(T.goal), Tile(), B2[1]]
 

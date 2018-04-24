@@ -29,11 +29,12 @@ def stage25():
 
     arr[5] = [None, Tile(), Tile(), None, None, None, Tile(), Tile()]
 
-    arr[6] = [Tile(), Tile(), Tile(T.hard_button, B1, []), Tile(), B2[0], B2[1], Tile(), Tile()]
+    arr[6] = [Tile(), Tile(), Tile(T.hard_special_button, B1, []), Tile(), B2[0], B2[1], Tile(), Tile()]
 
     arr[7] = [Tile(), Tile(), Tile(), None, None, None, Tile(), Tile()]
 
-    arr[8] = [Tile(), Tile(), Tile(), None, None, None, Tile(), Tile(), Tile(T.soft_button, [SB1], B2)]
+    arr[8] = [Tile(), Tile(), Tile(), None, None, None, Tile(), Tile(),
+                 Tile(T.soft_special_button, [SB1], B2)]
     arr[8] += [Tile() for i in range(5)]
 
     arr[9] = [None for i in range(11)]

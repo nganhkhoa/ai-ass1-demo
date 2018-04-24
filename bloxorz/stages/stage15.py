@@ -40,14 +40,14 @@ def stage15():
 
     arr[7] = [Tile(), Tile(), Tile(), 
                 None, None, None, Tile(), Tile(), Tile(), 
-                None, None, Tile(T.soft_button, [], B3), Tile(), Tile()]
+                None, None, Tile(T.soft_special_button, [], B3), Tile(), Tile()]
 
     arr[8] = [Tile() for i in range(9)]
     arr[8] += [B3[0], B3[1], Tile(), Tile(T.goal), Tile()]
 
     arr[9] = [Tile(), Tile(), Tile(), 
                 None, None, None, Tile(), Tile(), Tile(), 
-                None, None, Tile(T.soft_button, [], B3), Tile(), Tile()]
+                None, None, Tile(T.soft_special_button, [], B3), Tile(), Tile()]
 
     s = Stage('stage15', arr, 8, 1)
     s.save('stage15')

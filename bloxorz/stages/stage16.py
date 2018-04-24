@@ -16,7 +16,7 @@ def stage16():
     arr[0] += [Tile(), Tile(), Tile()]
 
     arr[1] = [Tile(T.split, [1,2,0,1]), Tile(), Tile(T.split, [1,0,1,2]), 
-                B1[0], B1[1], Tile(T.hard_button, B1, []), Tile(T.hard_button, B2, []), 
+                B1[0], B1[1], Tile(T.hard_special_button, B1, []), Tile(T.hard_special_button, B2, []), 
                 Tile(), B2[0], B2[1], Tile(), Tile(T.goal), Tile()]
 
     arr[2] = [None, Tile(T.split, [2,1,1,0])]
