@@ -3,7 +3,7 @@ from bloxorz.solver.mode import mode as m
 from bloxorz.solver.State import State, move
 from bloxorz.solver.Solver import Solver
 from bloxorz.common.getKey import getKey
-from bloxorz.common.moves import moves
+from bloxorz.common.moves import moves, print_moves
 
 import pickle
 import click
@@ -45,17 +45,15 @@ def play(f, mode=None):
             print("\033[1H", end="")
             print("\033[J", end="")
             print(s)
+            print_moves(s.moves)
 
             if s.isGoal():
-                print("[+] You made {} moves".format(len(s.moves)))
+                print("[+] You made {} moves".format(s.moves_made()))
                 print("[+] Press to continue")
                 click.getchar()
                 break
 
             try:
-                 #key = get_key()
-                 #key = moves(int(input()))
-
                 print("[+] Make a move")
                 key = getKey()
 
@@ -66,6 +64,7 @@ def play(f, mode=None):
                     print("\033[1H", end="")
                     print("\033[J", end="")
                     print(s)
+                    print_moves(s.moves)
                     print("[+] Make a move")
                     key = getKey()
 
