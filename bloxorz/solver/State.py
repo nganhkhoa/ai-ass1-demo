@@ -8,7 +8,6 @@ from bloxorz.game.TileType import TileType as T
 
 # get index for all blocks in state (every block have single location)
 def getIdx(blox):
-    """
     idx1 = blox[0].getIndex()
     idx2 = [idx1[0], idx1[1]]
 
@@ -30,10 +29,11 @@ def getIdx(blox):
     if blox[1] is not None:
         idx2 = blox[1].getIndex()
     return idx1, idx2
+    """
 
 
 # get index for single block, return location whole block on board
-def getIdx(block):
+def getIdx1(block):
     idx1 = block.getIndex()
     idx2 = [idx1[0], idx1[1]]
     if block.horizon():
@@ -75,28 +75,31 @@ def move(self, m):
             pass
 
     except IndexError:
-        self.blox[0].move(m.reverse())
+        block.move(m.reverse())
         raise Exception("IndexError")
 
     except AttributeError:
-        self.blox[0].move(m.reverse())
+        block.move(m.reverse())
         raise Exception("NoneTile")
 
     except Exception as e:
-        self.blox[0].move(m.reverse())
+        block.move(m.reverse())
         raise e
+
+    # record the moves
+    self.moves.append(m)
+    self.valid_moves += 1
 
     if ret is not None:
         # hit a split button
         self.blox[0].split(ret[0:2])
         self.blox[1] = Block(ret[2], ret[3])
         self.blox[1].height = 1
+        self.moves.append(moves.split)
 
     # try to join blocks
-    self.join()
-
-    # record the moves
-    self.moves.append(m)
+    if self.join():
+        self.moves.append(moves.join)
 
 
 class State:
@@ -108,6 +111,7 @@ class State:
         self.selection = 1
         self.start = [s.start_x, s.start_y]
         self.moves = []  # type: List[moves]
+        self.valid_moves = 0
 
     def __repr__(self):
         idx1, idx2 = getIdx(self.blox)
@@ -121,6 +125,7 @@ class State:
         # print(idx2)
         # print(self.blox[0].state)
 
+        # print the board
         for line in self.board:
             j = 0
             for tile in line:
@@ -138,6 +143,7 @@ class State:
                 j += 1
             print()
             i += 1
+
         return ""
 
     def isGoal(self):
@@ -173,14 +179,17 @@ class State:
         return self.blox[self.selection - 1].getIndex()
 
     def setActiveBlock(self, b):
-        self.selection = b
+        if self.selection != b:
+            self.selection = b
+            self.moves.append(moves.swap)
 
     def toggleActive(self):
         self.selection = 2 if self.selection == 1 else 1
+        self.moves.append(moves.swap)
 
     def join(self):
         if not self.isSplit():
-            return
+            return False
 
         idx1, idx2 = getIdx(self.blox)
 
@@ -193,7 +202,7 @@ class State:
                     self.blox[0].join(moves.right)
                 self.blox[1] = None
                 self.selection = 1
-                return
+                return True
 
         if idx1[1] == idx2[1]:
             if abs(idx1[0] - idx2[0]) == 1:
@@ -204,7 +213,12 @@ class State:
                     self.blox[0].join(moves.down)
                 self.blox[1] = None
                 self.selection = 1
-                return
+                return True
+
+        return False
+
+    def moves_made(self):
+        return self.valid_moves
 
 
 def getTrace(board, blox):
