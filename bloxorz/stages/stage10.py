@@ -32,7 +32,7 @@ def stage10():
     arr[3] += [Tile(), Tile(), Tile(), HB[3]]
 
     arr[4] = [None for i in range(11)]
-    arr[5] += [Tile(), Tile()]
+    arr[4] += [Tile(), Tile()]
 
     arr[5] = [None for i in range(12)]
     arr[5].append(Tile())

@@ -32,6 +32,7 @@ def stage25():
     arr[6] = [Tile(), Tile(), Tile(T.hard_special_button, B1, []), Tile(), B2[0], B2[1], Tile(), Tile()]
 
     arr[7] = [Tile(), Tile(), Tile(), None, None, None, Tile(), Tile()]
+    arr[7] += [None, None, None, Tile(), Tile(), Tile()]
 
     arr[8] = [Tile(), Tile(), Tile(), None, None, None, Tile(), Tile(),
                  Tile(T.soft_special_button, [SB1], B2)]

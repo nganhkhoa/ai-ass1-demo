@@ -13,6 +13,7 @@ def stage26():
 
     arr[0] = [None for i in range(5)]
     arr[0] += [Tile() for i in range(4)]
+    arr[0] += [None for i in range(4)]
     arr[0] += [Tile(T.split, [3,12,5,10])]
 
     arr[1] = [None for i in range(5)]

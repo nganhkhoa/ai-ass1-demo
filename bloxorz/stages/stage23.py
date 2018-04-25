@@ -36,7 +36,7 @@ def stage23():
                 None, None, None, None, Tile()]
 
     arr[5] = [Tile(T.soft_special_button, [SB2], B2), None, None, None, 
-                Tile(), None, Tile(T.soft_ground), Tile(T.soft_ground), Tile(T.soft_ground), 
+                Tile(), None, None, Tile(T.soft_ground), Tile(T.soft_ground), Tile(T.soft_ground), 
                 None, None, None, None, Tile()]
 
     arr[6] = [Tile(), B2[0], B2[1], Tile(), Tile(), Tile()]

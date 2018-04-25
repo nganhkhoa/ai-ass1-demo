@@ -28,7 +28,7 @@ def stage12():
     arr[4] += [None for i in range(3)]
     arr[4] += [Tile(), Tile()]
 
-    arr[5] = [Tile() for i in range(6)]
+    arr[5] = [None] + [Tile() for i in range(5)]
     arr[5] += [None, None, None]
     arr[5] += [Tile() for i in range(4)]
 
