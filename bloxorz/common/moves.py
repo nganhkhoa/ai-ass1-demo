@@ -11,6 +11,12 @@ class moves(Enum):
     join = 6
     swap = 7
 
+    def __repr__(self):
+        return self.name.upper()
+
+    def __str__(self):
+        return self.name.upper()
+
     def reverse(self):
         if self.value % 2 == 0:
             return moves(self.value - 1)
