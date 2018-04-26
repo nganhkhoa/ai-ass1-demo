@@ -87,21 +87,26 @@ def BFS(s):
 
 # s is a solver(queue, mode, goal)
 def BFS(s):
-    print("[+] Looping...")
     queue = s.queue
     setTrace = s.setTrace
     count = 0
     while not queue.empty():
+        print("[+] Looping... {:5} / 50000".format(count), end='\r')
         if count > 50000:
             return
+
         count += 1
         cur_state = queue.get()
+
         if cur_state.isGoal():
             s.goal = cur_state
-            print('[+] I have found the solution in {} steps'.format(count))
+            print('[+] I have found the solution after {} iterations'.format(count))
             return
+
         for numBlocks in range(2 if cur_state.isSplit() else 1):
+            # for each block in blox
             for step in range(0 if cur_state.isSplit() else 1, 5):
+                # up down left right
                 try:
                     new_state = deepcopy(cur_state)
                     new_state.setActiveBlock(numBlocks + 1)
@@ -119,5 +124,3 @@ def BFS(s):
                             #new_state.moves.append(m)
                 except Exception:
                     continue
-
-
