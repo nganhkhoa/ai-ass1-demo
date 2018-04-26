@@ -83,10 +83,9 @@ class Solver:
             if not step.normalMove():
                 continue
             if step == moves.swap:
-                i += 1
                 s.toggleActive()
-                continue
-            move(s, step)
+            else:
+                move(s, step)
             i += 1
             print("\033[1H", end="")
             print("\033[J", end="")

@@ -34,29 +34,25 @@ class moves(Enum):
 
 def print_moves(list_moves, step=None):
     # print the moves
-    print("\033[s", end="")      # save cursor
+    print("\033[s")      # save cursor
     print("\033[1H", end="")
 
     frame = []
 
     i = 0
     start = 1
+    list_moves = [m for m in list_moves if m.normalMove()]
 
     if step is None:
-        for m in list_moves:
-            if not m.normalMove() or m == moves.swap:
-                continue
-            if step is None:
-                frame.append(m)
-                start += 1
-            i += 1
-        frame = frame[-7:]
-        start -= len(frame)
-        base = len(frame) - 1
-    else:
         if len(list_moves) <= 7:
+            frame = ["---" for i in range(7 - len(list_moves))] + list_moves
+        else:
+            frame = list_moves[-7:]
+        base = 6
+    else:
+        if len(list_moves) <= 7 or step <= 3:
             frame = list_moves[step:step + 4]
-            frame = [None for i in range(3)] + frame
+            frame = ["---" for i in range(3)] + frame
             for i in range(3):
                 if step - 3 + i >= 0:
                     frame[i] = list_moves[step - 3 + i]
@@ -81,7 +77,6 @@ def print_moves(list_moves, step=None):
             print("|   ", end="")
             if step is None:
                 print("{}. ".format(start + i), end="")
-                pass
             else:
                 if i < base:
                     print("\033[90m", end="")
@@ -97,4 +92,4 @@ def print_moves(list_moves, step=None):
         print("\033[0m", end="")
 
     print("\033[0m", end="")
-    print("\033[u",end="")      # reload cursor
+    print("\033[u")      # reload cursor
