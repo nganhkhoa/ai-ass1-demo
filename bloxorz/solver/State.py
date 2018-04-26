@@ -79,16 +79,20 @@ def move(self, m):
             pass
 
     except IndexError:
-        self.blox[0].move(m.reverse())
+        block.move(m.reverse())
         raise Exception("IndexError")
 
     except AttributeError:
-        self.blox[0].move(m.reverse())
+        block.move(m.reverse())
         raise Exception("NoneTile")
 
     except Exception as e:
-        self.blox[0].move(m.reverse())
+        block.move(m.reverse())
         raise e
+
+    # record the moves
+    self.moves.append(m)
+    self.valid_moves += 1
 
     if ret is not None:
         # hit a split button
@@ -98,20 +102,27 @@ def move(self, m):
         self.blox[1].state = s.neutral
 
     # try to join blocks
-    self.join()
+    # self.join()
 
     # record the moves
     # self.moves.append(m)
+    # self.moves.append(moves.split)
+
+    # try to join blocks
+    if self.join():
+        self.moves.append(moves.join)
 
 
 class State:
     def __init__(self, s: Stage):
         # do something to parse the stage to a state
+        self.name = s.name
         self.board = s.board
         self.blox = [Block(s.start_x, s.start_y), None]
         self.selection = 1
         self.start = [s.start_x, s.start_y]
         self.moves = []  # type: List[moves]
+        self.valid_moves = 0
 
     def __repr__(self):
         idx1, idx2 = getIdx(self.blox)
@@ -125,6 +136,7 @@ class State:
         # print(idx2)
         # print(self.blox[0].state)
 
+        # print the board
         for line in self.board:
             j = 0
             for tile in line:
@@ -142,6 +154,7 @@ class State:
                 j += 1
             print()
             i += 1
+
         return ""
 
     def isGoal(self):
@@ -177,14 +190,17 @@ class State:
         return self.blox[self.selection - 1].getIndex()
 
     def setActiveBlock(self, b):
-        self.selection = b
+        if self.selection != b:
+            self.selection = b
+            self.moves.append(moves.swap)
 
     def toggleActive(self):
         self.selection = 2 if self.selection == 1 else 1
+        self.moves.append(moves.swap)
 
     def join(self):
         if not self.isSplit():
-            return
+            return False
 
         idx1, idx2 = getIdx(self.blox)
 
@@ -197,7 +213,7 @@ class State:
                     self.blox[0].join(moves.right)
                 self.blox[1] = None
                 self.selection = 1
-                return
+                return True
 
         if idx1[1] == idx2[1]:
             if abs(idx1[0] - idx2[0]) == 1:
@@ -208,7 +224,12 @@ class State:
                     self.blox[0].join(moves.down)
                 self.blox[1] = None
                 self.selection = 1
-                return
+                return True
+
+        return False
+
+    def moves_made(self):
+        return self.valid_moves
 
     def getSelectingBlock(self):
         return self.selection

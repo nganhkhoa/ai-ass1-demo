@@ -31,12 +31,12 @@ class Tile:
         if t == T.soft_button or \
            t == T.soft_special_button or \
            t == T.soft_hell_button:
-            return "O"
+            return "\033[32;42mO\033[0m"
 
         elif t == T.hard_button or \
              t == T.hard_special_button or \
              t == T.hard_hell_button:
-            return "X"
+            return "\033[32;42mX\033[0m"
 
         elif t == T.soft_ground:
             return "\033[31;41m \033[0m"
@@ -48,7 +48,7 @@ class Tile:
             return " "
 
         elif t == T.split:
-            return "S"
+            return "\033[35;45mS\033[0m"
 
         elif t == T.goal:
             return "\033[36;46m \033[0m"

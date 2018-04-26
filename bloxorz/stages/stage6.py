@@ -32,17 +32,17 @@ def stage6():
     arr[5] += [None for i in range(5)]
     arr[5] += [Tile(), Tile(), Tile()]
 
-    arr[6] = [None for i in range(7)]
+    arr[6] = [None for i in range(6)]
     arr[6].append(Tile())
     arr[6] += [None, None, Tile(), Tile()]
 
-    arr[7] = [None for i in range(7)]
+    arr[7] = [None for i in range(6)]
     arr[7] += [Tile() for i in range(5)]
 
-    arr[8] = [None for i in range(7)]
+    arr[8] = [None for i in range(6)]
     arr[8] += [Tile() for i in range(5)]
 
-    arr[9] = [None for i in range(8)]
+    arr[9] = [None for i in range(7)]
     arr[9] += [Tile(), Tile(), Tile()]
 
     s = Stage('stage6', arr, 3, 0)

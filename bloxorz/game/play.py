@@ -3,6 +3,7 @@ from bloxorz.solver.mode import mode as m
 from bloxorz.solver.State import State, move
 from bloxorz.solver.Solver import Solver
 from bloxorz.common.getKey import getKey
+from bloxorz.common.moves import moves, print_moves
 
 import pickle
 import click
@@ -27,6 +28,7 @@ def play(f, mode=None):
     stage = load(f)
     init = State(stage)
     if mode is None:
+        """
         print("Load moves files? Please enter file name")
         filename = input("$>> ")
 
@@ -34,23 +36,23 @@ def play(f, mode=None):
             pass
         else:
             input("Gaming mode, Ctrl+C to quit")
+        """
+        input("Welcome to stage: {}".format(init.name))
 
         s = init
         while True:
             print("\033[1H", end="")
             print("\033[J", end="")
             print(s)
+            print_moves(s.moves)
 
             if s.isGoal():
-                print("[+] You made {} moves".format(len(s.moves)))
+                print("[+] You made {} moves".format(s.moves_made()))
                 print("[+] Press to continue")
                 click.getchar()
                 break
 
             try:
-                 #key = get_key()
-                 #key = moves(int(input()))
-
                 print("[+] Make a move")
                 key = getKey()
 
@@ -61,11 +63,17 @@ def play(f, mode=None):
                     print("\033[1H", end="")
                     print("\033[J", end="")
                     print(s)
+                    print_moves(s.moves)
                     print("[+] Make a move")
                     key = getKey()
 
             except KeyboardInterrupt:
-                break
+                key = input("Quit now? (y/n) ")
+                if key == "y" or key == "Y":
+                    break
+
+            if not isinstance(key, moves):
+                continue
 
             try:
                 move(s, key)
@@ -77,3 +85,10 @@ def play(f, mode=None):
         problem = Solver(init, mode)
         problem.solve()
         print(problem)
+
+        k = input("Replay? (y/n) ")
+        if k == "y" or k == "Y":
+            print("Press right arrow to next move")
+            print("If no move left, press enter to exit")
+            click.getchar()
+            problem.replay()

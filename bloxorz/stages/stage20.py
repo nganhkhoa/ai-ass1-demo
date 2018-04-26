@@ -19,13 +19,13 @@ def stage20():
                 Tile(), Tile(), Tile(), SB2[0], SB2[1], Tile(), Tile(), Tile()]
 
     arr[2] = [None, None, Tile(), Tile(), Tile(), 
-                None, None, Tile(T.soft_button, [], SB1), Tile(), Tile(), 
+                None, None, Tile(T.soft_special_button, [], SB1), Tile(), Tile(), 
                 None, None, Tile(), Tile(), Tile()]
 
     arr[3] = [None, None, Tile(), Tile(), Tile(), None, None, Tile(), Tile(), Tile()]
 
-    arr[4] = [None, None, Tile(), Tile(T.soft_button, [], SB1), Tile(), 
-                None, None, Tile(T.split, [1,13,7,13]), Tile(), Tile(T.soft_button, [], SB1)]
+    arr[4] = [None, None, Tile(), Tile(T.soft_special_button, [], SB1), Tile(), 
+                None, None, Tile(T.split, [1,13,7,13]), Tile(), Tile(T.soft_special_button, [], SB1)]
 
     arr[5] = [None, None, Tile(), Tile(), Tile(), None, None, Tile(), Tile(), Tile()]
 
