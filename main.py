@@ -29,13 +29,13 @@ def auto_play():
                 "Simulated Annealing (!)",
                 "Best First Search (!)"]))
 
-    if mode != 0:
+    if choice != 0:
         play("stage{}".format(choice), mode)
         input()
     else:
         for i in range(33):
             play("stage{}".format(i + 1), mode)
-            input()
+        input()
 
 
 def manual_play():
