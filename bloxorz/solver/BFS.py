@@ -83,18 +83,22 @@ def BFS(s):
             print("\033[J", end="")
 
 """
+
+
 # s is a solver(queue, mode, goal)
 def BFS(s):
+    print("[+] Looping...")
     queue = s.queue
     setTrace = s.setTrace
     count = 0
     while not queue.empty():
-        print("step {}".format(count))
+        if count > 50000:
+            return
         count += 1
         cur_state = queue.get()
         if cur_state.isGoal():
             s.goal = cur_state
-            print()
+            print('[+] I have found the solution in {} steps'.format(count))
             return
         for numBlocks in range(2 if cur_state.isSplit() else 1):
             for step in range(0 if cur_state.isSplit() else 1, 5):
@@ -104,14 +108,15 @@ def BFS(s):
                     m = moves(step)
                     move(new_state, m)
                     new_trace = getTrace(new_state.getBoard(), new_state.blox)
-                    print(new_trace)
+                    # print(new_trace)
                     if new_trace not in setTrace:
+                        # print(new_state)
                         queue.put(new_state)
                         setTrace.add(new_trace)
-                        if step != 0:
-                            if cur_state.getSelectingBlock() != (numBlocks + 1):
-                                new_state.moves.append(' ')
-                            new_state.moves.append(m)
+                        #if step != 0:
+                            #if cur_state.getSelectingBlock() != (numBlocks + 1):
+                             #   new_state.moves.append(' ')
+                            #new_state.moves.append(m)
                 except Exception:
                     continue
 

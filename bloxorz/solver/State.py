@@ -100,6 +100,7 @@ def move(self, m):
         self.blox[1] = Block(ret[2], ret[3])
         self.blox[1].height = 1
         self.blox[1].state = s.neutral
+        self.moves.append(moves.split)
 
     # try to join blocks
     # self.join()

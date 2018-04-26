@@ -57,7 +57,7 @@ class Solver:
 
     def __repr__(self):
         if self.goal is not None:
-            print("[+] I've found a way:")
+            print("[+] The solution is:")
             print(self.goal.moves)
             return ""
         else:
