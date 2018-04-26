@@ -4,6 +4,11 @@ Using console by the way
 
 This project is only tested on Linux environment, Windows is not guaranteed to work fine.
 
+
+## Demo
+
+BFS: [asciinema](https://asciinema.org/a/ZmDTxfSMtGMaTbCVmb3B3xqge)
+
 ## To get things setup
 
 ```bash
