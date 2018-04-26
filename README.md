@@ -2,22 +2,41 @@
 
 Using console by the way
 
-This project is only tested on Linux environment, Windows is not guaranteed to work fine.
-
+This project is mainly tested on Linux environment, Windows is not guaranteed to work fine.
 
 ## Demo
 
-BFS: [asciinema](https://asciinema.org/a/ZmDTxfSMtGMaTbCVmb3B3xqge)
+[BFS](https://asciinema.org/a/ZmDTxfSMtGMaTbCVmb3B3xqge)
 
 ## To get things setup
 
-```bash
-pip install click
-mkdir raw
-python main.py
+### Requirements
 
-and choose generate stages
+Python 3.6 or above is required
+
+Pip is also required to install packages
+
+### Quick setup
+
+```bash
+pip install -r requirements.txt
+python main.py
 ```
+
+or use virtualenv for development
+
+```bash
+virtualenv bloxorz-env
+source bloxorz-env/bin/activate
+pip install -r requirements.txt
+python main.py
+```
+
+### Dependencies
+
+Click to catch arrows key pressed: [offical websites](http://click.pocoo.org/6/)
+
+Colorama to use ansi escape code in Windows: [github](https://github.com/tartley/colorama)
 
 ## The file structure
 
@@ -29,26 +48,34 @@ and choose generate stages
 |---|---stage2
 |---|---...
 |---bloxorz/
+|---|---common/
+|---|---|---getKey.py
+|---|---|---menu.py
+|---|---|---moves.py
 |---|---game/
 |---|---|---play.py
-|---|---|---mode.py
 |---|---|---Stage.py
 |---|---|---Tile.py
 |---|---|---TileType.py
 |---|---solver/
-|---|---|---moves.py
 |---|---|---Solver.py
-|---|---|-------algorithm implement files
 |---|---|---State.py
 |---|---|---Block.py
+|---|---|---mode.py
+|---|---|
+|---|---|---algorithm implement files
 |---|---stages/
 |---|---|---GenStage.py
-|---|---|---stages.py
+|---|---|---stage1.py
+|---|---|---stage2.py
+|---|---...
 ```
 
 ## Game Structure
 
 ### Tiles
+
+#### Examination
 
 A tile is a square in the game. There are many types of tile.
 
@@ -72,14 +99,19 @@ enum class TileType : int {
     goal,
     split,
     soft_ground,
+
     soft_button,
     hard_button,
+
     soft_special_button,
     hard_special_button
+
     soft_hell_button,
     hard_hell_button
 };
 ```
+
+#### Tile class
 
 And our tile class is as follows:
 
@@ -94,6 +126,8 @@ class Tile {
     Tile*[] toggle;       // Tiles to toggle
     Tile*[] open;         // Tiles to change to open
     Tile*[] close;        // Tiles to change to close
+
+    int* trigger(bool standing);
 };
 ```
 
@@ -123,12 +157,16 @@ Tile(TileType.soft_special_button, NULL, Tile*[] close);
 Tile(TileType.soft_special_button, Tile*[] open, Tile*[] close);
 
 // making a button which will open and closes set of bridges but also toggle some
-Tile(TileType.soft_special_button, Tile*[] toggle, Tile*[] open, Tile*[] close);
+Tile(TileType.soft_hell_button, Tile*[] toggle, Tile*[] open, Tile*[] close);
 
 // the same for hard button
 ```
 
 Take close look that the bridges are given as `Tile*[]`. This is to make sure that this works even if more than 1 button point to the same bridge.
+
+#### Trigger process
+
+The tile has a trigger function which will do things based on what the Tile type is. If the tile is a button, according to the button type, it will open/close/toggle bridges. If the tile is a split tile and the block is standing, it will return the new address of the blocks. If the tile is a soft ground and the block is standing, it will throw a "Fall" error. If the tile is a Bridge and not valid, a "Hidden Bridge" will be thrown. Other situtation won't do anything to the board or throw anything.
 
 ### Stage
 
@@ -150,7 +188,7 @@ class Stage {
 }
 ```
 
-This class is used only to create binary files of stages and load to a State.
+This class is used only to create binary files of stages and load to a State on play.
 
 ### Block
 
@@ -167,10 +205,14 @@ A numeration on how to move
 ```c++
 // c++
 enum moves {
+    nomoves,
     up,
     down,
     right,
-    left
+    left,
+    split,
+    join,
+    swap
 };
 ```
 
@@ -184,32 +226,58 @@ class State {
     Tile[][] board;
     Block blox[2];
     int selection = 1;
+    moves[] moves;
 
-    void move(moves m) {
-        void* ret = NULL;
-        try {
-            ret = blox[selection - 1]->move(m);
-        }
-        catch(everything) {
-            throw error;
-        }
-
-        if (ret != NULL) {
-            // ret is now a index after split
-            blox[0]->split(ret);
-            // post process
-            // blox[1] = new Block(ret);
-        }
-
-        // try to join
-        // if not split, just return
-        // if not able to join, return
-        this->join();
+    void toggleActive() {
+        if (this->selection == 2)
+            this->selection = 1;
+        else
+            this->selection = 2
     }
 };
+
+void move(State* s, moves m) {
+    void* ret = NULL;
+    Block* block = &(s->blox[x->selection - 1])
+    try {
+        block->move(m);
+
+        if (block is out of bound)
+            throw outofbound
+
+        // trigger the tiles
+        ret = s->board[block->index()].trigger();
+
+        if !(block->standing || block->spliting)
+            // trigger the other block
+    }
+    catch(everything) {
+        // reverse the move
+        block->move(m.reverse())
+        throw error;
+    }
+
+    s->moves.append(m)
+
+    if (ret != NULL) {
+        // ret is now a index after split
+        s->blox[0]->split(ret);
+        // post process
+        // blox[1] = new Block(ret);
+
+        s->moves.append(moves.split)
+    }
+
+    // try to join
+    // if not split, return false
+    // if not able to join, return false
+    // else join and return true and add to list of moves
+    if (s->join())
+        s->moves.append(moves.join)
+}
 ```
 
-When implementing algorithm, just need to call `move(direction)` and you're done. If when moving, an error occured (go out of board, standing in soft ground), it will throw and you can ignore the throw. The throw procedure is like a signal that a move is invalid.
+When implementing algorithm, just need to call `move(s, direction)` and you're done. If when moving, an error occured (go out of board, standing in soft ground), it will throw and you can ignore the throw. The throw procedure is like a signal that a move is invalid.
 
 ### Solver
 
@@ -231,3 +299,13 @@ Solver* problem = new Solver(init, mode);
 problem->solve();
 problem->printSolution();
 ```
+
+### ALGORITHM
+
+Algorithm explanation
+
+#### BFS
+
+#### DFS
+
+#### HILL CLIMBING
