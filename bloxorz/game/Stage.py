@@ -3,6 +3,7 @@ from .Tile import Tile
 # from .Block import Block
 
 import pickle
+from os import path, makedirs
 
 
 class Stage:
@@ -16,4 +17,6 @@ class Stage:
         return self.name
 
     def save(self, f):
+        if not path.exists('./raw/'):
+            makedirs('./raw/')
         pickle.dump(self, open("./raw/{}".format(f), "wb"))
