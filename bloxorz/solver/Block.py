@@ -11,12 +11,12 @@ class State(enumerate):
 
 
 class Block:
-    splitting = False
 
     def __init__(self, x, y):
         self.height = 2
         self.state = State.standing
         self.location = [x, y]
+        self.splitting = False
 
     def isSplit(self):
         return self.splitting
@@ -70,6 +70,9 @@ class Block:
         #     pass
 
         return self.location
+
+    def getState(self):
+        return self.state
 
     def move(self, m: moves):
         if m == moves.left:

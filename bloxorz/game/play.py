@@ -26,7 +26,6 @@ def load(f):
 def play(f, mode=None):
     stage = load(f)
     init = State(stage)
-
     if mode is None:
         print("Load moves files? Please enter file name")
         filename = input("$>> ")

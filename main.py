@@ -23,14 +23,14 @@ def auto_play():
     elif choice == 0:
         pass
     else:
-        choice = menu("Choose your algorithm\n! as not complete",
+        choices = menu("Choose your algorithm\n! as not complete",
                     ["BFS (!)",
                     "DFS (!)",
                     "Hill clibming (!)",
                     "Simulated Annealing (!)",
                     "Best First Search (!)"])
 
-        mode = m(int(choice))
+        mode = m(int(choices))
         play("stage{}".format(choice), mode)
         input()
 

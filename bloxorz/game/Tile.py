@@ -112,10 +112,11 @@ class Tile:
         elif t == T.bridge and self.valid == False:
             raise Exception("HiddenBridge")
 
-        elif t == T.split:
+        # notice this case,Will every block split only when standing?
+        elif t == T.split and standing:
             return self.split_place
 
-        else:
-            pass
+        #else:
+            #pass
 
         return None

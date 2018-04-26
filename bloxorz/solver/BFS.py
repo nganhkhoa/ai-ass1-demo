@@ -1,9 +1,12 @@
 from bloxorz.common.moves import moves
 from bloxorz.solver.State import move
+from bloxorz.solver.State import getTrace
 
 from queue import Queue
 from copy import deepcopy
 
+"""
+# s is a solver(queue, mode, goal)
 def BFS(s):
     queue = s.queue
 
@@ -78,3 +81,38 @@ def BFS(s):
             input("Sometimes this happens, try breaking again")
             print("\033[1H", end="")
             print("\033[J", end="")
+
+"""
+# s is a solver(queue, mode, goal)
+def BFS(s):
+    queue = s.queue
+    setTrace = s.setTrace
+    count = 0
+    while not queue.empty():
+        print("step {}".format(count))
+        count += 1
+        cur_state = queue.get()
+        if cur_state.isGoal():
+            s.goal = cur_state
+            print()
+            return
+        for numBlocks in range(2 if cur_state.isSplit() else 1):
+            for step in range(0 if cur_state.isSplit() else 1, 5):
+                try:
+                    new_state = deepcopy(cur_state)
+                    new_state.setActiveBlock(numBlocks + 1)
+                    m = moves(step)
+                    move(new_state, m)
+                    new_trace = getTrace(new_state.getBoard(), new_state.blox)
+                    print(new_trace)
+                    if new_trace not in setTrace:
+                        queue.put(new_state)
+                        setTrace.add(new_trace)
+                        if step != 0:
+                            if cur_state.getSelectingBlock() != (numBlocks + 1):
+                                new_state.moves.append(' ')
+                            new_state.moves.append(m)
+                except Exception:
+                    continue
+
+

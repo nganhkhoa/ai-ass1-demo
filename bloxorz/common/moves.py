@@ -2,6 +2,7 @@ from enum import Enum, auto
 
 
 class moves(Enum):
+    notmove = 0
     up = 1
     down = 2
     right = 3

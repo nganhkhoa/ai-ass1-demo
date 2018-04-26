@@ -16,12 +16,15 @@ from bloxorz.solver.BEST import BEST
 
 import queue
 
+
 class Solver:
     def __init__(self, s: State, m: mode):
-        self.queue = queue.Queue
+        self.queue = queue.Queue()
         self.queue.put(s)
+        # self.queue = [s]
         self.mode = m
         self.goal = None
+        self.setTrace = set()
 
     def solve(self):
         if self.mode == mode.bfs:

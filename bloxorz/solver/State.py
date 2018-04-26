@@ -4,11 +4,10 @@ from bloxorz.game.Stage import Stage
 from bloxorz.solver.Block import Block
 from bloxorz.common.moves import moves
 from bloxorz.game.TileType import TileType as T
+from bloxorz.solver.Block import State as s
 
 
-# get index for all blocks in state (every block have single location)
 def getIdx(blox):
-    """
     idx1 = blox[0].getIndex()
     idx2 = [idx1[0], idx1[1]]
 
@@ -24,7 +23,10 @@ def getIdx(blox):
         idx2 = blox[1].getIndex()
 
     return idx1, idx2
-    """
+
+
+# get index for all blocks in state (every block have single location)
+def getIndexBlox(blox):
     idx1 = blox[0].getIndex()
     idx2 = [-1, -1]
     if blox[1] is not None:
@@ -33,7 +35,7 @@ def getIdx(blox):
 
 
 # get index for single block, return location whole block on board
-def getIdx(block):
+def getIndexBlock(block):
     idx1 = block.getIndex()
     idx2 = [idx1[0], idx1[1]]
     if block.horizon():
@@ -46,6 +48,8 @@ def getIdx(block):
 
 
 def move(self, m):
+    if m == moves.notmove:
+        return
     block = self.blox[self.selection - 1]
 
     block.move(m)
@@ -91,12 +95,13 @@ def move(self, m):
         self.blox[0].split(ret[0:2])
         self.blox[1] = Block(ret[2], ret[3])
         self.blox[1].height = 1
+        self.blox[1].state = s.neutral
 
     # try to join blocks
     self.join()
 
     # record the moves
-    self.moves.append(m)
+    # self.moves.append(m)
 
 
 class State:
@@ -205,12 +210,21 @@ class State:
                 self.selection = 1
                 return
 
+    def getSelectingBlock(self):
+        return self.selection
+
 
 def getTrace(board, blox):
-    idx1, idx2 = getIdx(blox)
-    trace = str(idx1[0]) + str(idx1[1]) + str(idx2[0]) + str(idx2[1])
+    idx1, idx2 = getIndexBlox(blox)
+    trace = str(blox[0].getState()) + str(idx1[0]) + str(idx1[1])
+    if blox[1] is not None:
+        trace += str(blox[1].getState())
+    else:
+        trace += "-1"
+    trace += str(idx2[0]) + str(idx2[1])
     for line in board:
         for tile in line:
+            # print(type(tile))
             if tile is not None and tile.type == T.bridge:
                 if tile.getValid():
                     trace += '1'
