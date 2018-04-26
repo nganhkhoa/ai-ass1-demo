@@ -32,6 +32,7 @@ class Solver:
         self.setTrace = set()
 
     def solve(self):
+        print("[!] {}".format(self.init.name))
         if self.mode == mode.bfs:
             print("[+] Solving with bfs now")
             BFS(self)
@@ -80,6 +81,10 @@ class Solver:
 
         for step in steps:
             if not step.normalMove():
+                continue
+            if step == moves.swap:
+                i += 1
+                s.toggleActive()
                 continue
             move(s, step)
             i += 1
