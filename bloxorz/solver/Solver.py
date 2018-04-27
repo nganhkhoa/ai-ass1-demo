@@ -35,26 +35,27 @@ class Solver:
         print("[!] {}".format(self.init.name))
         if self.mode == mode.bfs:
             print("[+] Solving with bfs now")
-            BFS(self)
+            return BFS(self)
 
         elif self.mode == mode.dfs:
             print("[+] Solving with dfs now")
-            DFS(self)
+            return DFS(self)
 
         elif self.mode == mode.hill:
             print("[+] Solving with hill climbing now")
-            HILL(self)
+            return HILL(self)
 
         elif self.mode == mode.annealing:
             print("[+] Simulated Annealing?")
-            ANNEALING(self)
+            return ANNEALING(self)
 
         elif self.mode == mode.best:
             print("[+] Someone says best first?")
-            BEST(self)
+            return BEST(self)
 
         else:
             print("[?] LOL what algorithm")
+            return False
 
     def __repr__(self):
         if self.goal is not None:
@@ -62,7 +63,7 @@ class Solver:
             print(self.goal.moves)
             return ""
         else:
-            return "--- Sorry, I couldn't do it"
+            return "--- Sorry, I couldn't do it :("
 
     def replay(self):
         s = self.init

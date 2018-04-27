@@ -93,7 +93,7 @@ def BFS(s):
     while not queue.empty():
         print("[+] Looping... {:5} / 50000".format(count), end='\r')
         if count > 50000:
-            return
+            return False
 
         count += 1
         cur_state = queue.get()
@@ -101,7 +101,7 @@ def BFS(s):
         if cur_state.isGoal():
             s.goal = cur_state
             print('[+] I have found the solution after {} iterations'.format(count))
-            return
+            return True
 
         for numBlocks in range(2 if cur_state.isSplit() else 1):
             # for each block in blox
@@ -124,3 +124,5 @@ def BFS(s):
                             #new_state.moves.append(m)
                 except Exception:
                     continue
+
+    return False

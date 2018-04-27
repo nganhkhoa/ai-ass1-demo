@@ -11,7 +11,7 @@ def DFS(s):
     while len(stack) > 0:
         print("[+] Looping... {:5} / 50000".format(count), end='\r')
         if count > 50000:
-            return
+            return False
 
         count += 1
         cur_state = stack[-1]
@@ -20,7 +20,7 @@ def DFS(s):
         if cur_state.isGoal():
             s.goal = cur_state
             print('[+] I have found the solution after {} iterations'.format(count))
-            return
+            return True
 
         for numBlocks in range(2 if cur_state.isSplit() else 1):
             # for each block in blox
@@ -44,3 +44,4 @@ def DFS(s):
                 except Exception:
                     continue
 
+    return False

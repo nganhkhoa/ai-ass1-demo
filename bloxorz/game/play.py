@@ -24,7 +24,7 @@ def load(f):
     return s
 
 
-def play(f, mode=None):
+def play(f, mode=None, replay=None):
     stage = load(f)
     init = State(stage)
     if mode is None:
@@ -83,12 +83,20 @@ def play(f, mode=None):
 
     else:
         problem = Solver(init, mode)
-        problem.solve()
+        status = problem.solve()
         print(problem)
 
-        k = input("Replay? (y/n) ")
-        if k == "y" or k == "Y":
-            print("Press right arrow to next move")
-            print("If no move left, press enter to exit")
-            click.getchar()
-            problem.replay()
+        if status is False:
+            return
+
+        if replay == 2:
+            return
+
+        if replay == 3:
+            k = input("Replay? (y/n) ")
+            if k != "y" and k != "Y":
+                return
+        print("Press right arrow to next move")
+        print("If no move left, press enter to exit")
+        click.getchar()
+        problem.replay()
