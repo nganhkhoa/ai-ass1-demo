@@ -281,13 +281,7 @@ When implementing algorithm, just need to call `move(s, direction)` and you're d
 
 ### Solver
 
-The solver framework is based on the strategy pattern, deppends on which mode we choose, it will run the algorithm. The solver main class stores the init state, the goal state if there's one and the algorithm mode to solve. Futhermore, when creating states, an already existed state might be generated again and again. To prevent the problem describe, the solver class will store a list of State Character.
-
-The State Chracter is a string to defined in a STAGE that a STATE generated is unique. The character of a state is a sequence of these: the index of the two blocks, 
-
-When the solver call on solve, it will run the algorithm on itself. Then with the init state, you can create a queue and solve.
-
-A call to solver will be like this:
+// to be updated
 
 ```c++
 // c++
@@ -306,6 +300,56 @@ Algorithm explanation
 
 #### BFS
 
+```c++
+List<State*>* queue = new Queue<State*>();
+queue->enqueue(init);
+
+int count = 0;
+while (true) {
+    if (queue->empty() || count > 50000)
+        break;
+
+    State* s = queue->dequeue();
+    if (s->goal())
+        return;
+
+    moves* list_moves = gen_moves(s);
+
+    for (moves m : s) {
+        State* new_state = s->clone();
+        new_state->move(m);
+        queue->enqueue(new_state);
+    }
+
+    count++;
+}
+```
+
 #### DFS
+
+```c++
+List<State*>* stack = new Stack<State*>();
+stack->enqueue(init);
+
+int count = 0;
+while (true) {
+    if (stack->empty() || count > 50000)
+        break;
+
+    State* s = stack->pop();
+    if (s->goal())
+        return;
+
+    moves* list_moves = gen_moves(s);
+
+    for (moves m : s) {
+        State* new_state = s->clone();
+        new_state->move(m);
+        stack->push(new_state);
+    }
+
+    count++;
+}
+```
 
 #### HILL CLIMBING
