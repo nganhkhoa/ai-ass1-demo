@@ -87,9 +87,11 @@ def play(f, mode=None, replay=None):
         print(problem)
 
         if status is False:
+            click.getchar()
             return
 
         if replay == 2:
+            click.getchar()
             return
 
         if replay == 3:
@@ -97,6 +99,6 @@ def play(f, mode=None, replay=None):
             if k != "y" and k != "Y":
                 return
         print("Press right arrow to next move")
-        print("If no move left, press enter to exit")
+        print("If no move remains, press enter to exit")
         click.getchar()
         problem.replay()
