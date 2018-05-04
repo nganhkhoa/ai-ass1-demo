@@ -409,6 +409,87 @@ problem->printSolution();
 \end{verbatim}
 \section{Các giải thuật}
 \subsection{BFS}
+\subsubsection{Giải thích}
+Giải thuật được hiện thực theo mã giả sau:
+\begin{verbatim}
+Tạo queue với 1 phần tử là trạng thái khởi đầu
+Khởi tạo dãy dấu vết
+Khởi tạo bộ đếm bằng 0
+Lặp cho tới khi queue rỗng:
+    Nếu bộ đếm > 50000 thì trả về False
+    Tăng bộ đếm lên thêm 1
+    Lấy cur_state = dequeue(queue)
+    Nếu cur_state là đích thì trả về True
+    Lặp từng khối:
+        Lặp từng nước đi:
+            thử:
+                sinh ra trạng thái mới là new_state
+                lấy dấu vết của new_state
+                nếu dấu vết không có trong dãy dấu vết thì:
+                    enqueue(new_state)
+                    thêm dấu vết vào dãy dấu vết
+            thấy lỗi thì cứ tiếp tục
+Trả về False
+\end{verbatim}
+\subsubsection{Bảng số liệu}
 \subsection{DFS}
+\subsubsection{Giải thích}
+Giải thuật được hiện thực theo mã giả sau:
+\begin{verbatim}
+Tạo stack là list với 1 phần tử là trạng thái khởi đầu
+Khởi tạo dãy dấu vết
+Khởi tạo bộ đếm bằng 0
+Lặp cho tới khi stack rỗng:
+    Nếu bộ đếm > 50000 thì trả về False
+    Tăng bộ đếm lên thêm 1
+    Lấy cur_state = phần tử cuối của stack
+    Xóa phần tử cuối của stack đi
+    Nếu cur_state là đích thì trả về True
+    Lặp từng khối:
+        Lặp từng nước đi:
+            thử:
+                sinh ra trạng thái mới là new_state
+                lấy dấu vết của new_state
+                nếu dấu vết không có trong dãy dấu vết thì:
+                    thêm new_state vào list stack
+                    thêm dấu vết vào dãy dấu vết
+            thấy lỗi thì cứ tiếp tục
+Trả về False
+\end{verbatim}
+\subsubsection{Bảng số liệu}
 \subsection{HILL CLIMBING}
+\subsubsection{Giải thích}
+Giải thuật được hiện thực theo mã giả sau:
+\begin{verbatim}
+Khởi tạo biến prevEval
+Khởi tạo dãy dấu vết
+Khởi tạo bộ đếm bằng 0
+Khởi tạo cur_state là trạng thái khởi đầu
+Cứ lặp:
+    Nếu bộ đếm > 50000 thì trả về False
+    Tăng bộ đếm lên thêm 1
+    Nếu cur_state là đích thì trả về True
+    Tạo cannotMove là list nếu khối bị chia thì là 2 phần tử, 
+        không thì 1 phần tử
+    Đặt tất cả các phần tử của cannotMove là True
+    Lặp từng khối:
+        Lặp từng nước đi:
+            thử:
+                sinh ra trạng thái mới là new_state
+                lấy dấu vết của new_state
+                gán giá trị trả về của hàm EVAL(new_state) là newEval 
+                nếu dấu vết không có trong dãy dấu vết 
+                    và newEval tốt hơn prevEval thì:
+                        gán prevEval = newEval
+                        gán cur_state = new_state
+                        thêm dấu vết vào dãy dấu vết
+                        phần tử của cannotMove tại khối thứ i = False
+                        thoát vòng lặp nước đi
+            thấy lỗi thì cứ tiếp tục
+    Nếu (cannotMove có 2 phần tử và cả 2 đều là True) 
+        hoặc (1 phần tử là True) thì trả về False
+Trả về False
+\end{verbatim}
+Hàm EVAL được thực hiện như sau:
+\subsubsection{Bảng số liệu}
 \end{document}
