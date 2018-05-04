@@ -45,5 +45,5 @@ def stage19():
     arr[9] += [Tile() for i in range(6)]
     arr[9] += [Tile(T.soft_special_button, SB2, []), Tile(), Tile(), Tile()]
 
-    s = Stage('stage19', arr, 0, 1)
-    s.save('stage19')
+    s = Stage('19', arr, 0, 1)
+    s.save('19')

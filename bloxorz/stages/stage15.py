@@ -49,5 +49,5 @@ def stage15():
                 None, None, None, Tile(), Tile(), Tile(), 
                 None, None, Tile(T.soft_special_button, [], B3), Tile(), Tile()]
 
-    s = Stage('stage15', arr, 8, 1)
-    s.save('stage15')
+    s = Stage('15', arr, 8, 1)
+    s.save('15')

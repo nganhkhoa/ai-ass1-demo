@@ -51,5 +51,5 @@ def stage10():
     arr[9] += [Tile(), Tile(T.soft_button, SB), None, None]
     arr[9] += [Tile(), Tile(), Tile(), Tile(T.hard_button, HB), Tile()]
 
-    s = Stage('stage10', arr, 1, 9)
-    s.save('stage10')
+    s = Stage('10', arr, 1, 9)
+    s.save('10')

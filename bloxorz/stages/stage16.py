@@ -31,5 +31,5 @@ def stage16():
 
     arr[7] = [None, None, Tile(), Tile(), Tile(), None, None, None, Tile(), Tile(), Tile()]
 
-    s = Stage('stage16', arr, 6, 3)
-    s.save('stage16')
+    s = Stage('16', arr, 6, 3)
+    s.save('16')

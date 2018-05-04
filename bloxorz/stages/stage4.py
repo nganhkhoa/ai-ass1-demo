@@ -37,5 +37,5 @@ def stage4():
     arr[8] = [None for i in range(5)] + [Tile(), Tile(), Tile(), None, None]
     arr[8] += [Tile(T.soft_ground) for i in range(4)]
 
-    s = Stage('stage4', arr, 5, 1)
-    s.save('stage4')
+    s = Stage('4', arr, 5, 1)
+    s.save('4')

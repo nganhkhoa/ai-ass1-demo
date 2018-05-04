@@ -40,5 +40,5 @@ def stage11():
     arr[9] = [None for i in range(8)]
     arr[9] += [Tile(), Tile(), Tile()]
 
-    s = Stage('stage11', arr, 5, 0)
-    s.save('stage11')
+    s = Stage('11', arr, 5, 0)
+    s.save('11')

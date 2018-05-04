@@ -49,5 +49,5 @@ def stage29():
     arr[9] += [Tile(), B8[0], B8[1], 
                 Tile(T.soft_special_button, [B3[0],B3[1]], [B1[0],B1[1],B2[0],B2[1],B5[0],B5[1]])]
 
-    s = Stage('stage29', arr, 3, 7)
-    s.save('stage29')
+    s = Stage('29', arr, 3, 7)
+    s.save('29')

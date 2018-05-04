@@ -56,5 +56,5 @@ def stage30():
                 None, None, Tile(T.soft_ground), Tile(T.soft_ground), 
                 Tile(T.soft_ground), Tile(T.soft_ground), Tile()]
 
-    s = Stage('stage30', arr, 4, 2)
-    s.save('stage30')
+    s = Stage('30', arr, 4, 2)
+    s.save('30')

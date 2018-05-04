@@ -41,5 +41,5 @@ def stage32():
     arr[8] = [Tile(), Tile(), B4[0], B4[1]]
     arr[8] += [Tile() for i in range(7)]
 
-    s = Stage('stage32', arr, 6, 10)
-    s.save('stage32')
+    s = Stage('32', arr, 6, 10)
+    s.save('32')

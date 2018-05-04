@@ -39,5 +39,5 @@ def stage7():
     arr[7] = [None, None]
     arr[7] += [Tile() for i in range(6)]
 
-    s = Stage('stage7', arr, 3, 1)
-    s.save('stage7')
+    s = Stage('7', arr, 3, 1)
+    s.save('7')
