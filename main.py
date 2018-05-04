@@ -30,11 +30,12 @@ def auto_play():
                 "Best First Search (!)"]))
 
     auto_replay = menu("Auto replay?", ["Yes", "No", "Ask me"], 1)
-    auto_next = menu("Auto next level?", ["Yes", "No", "Ask me"], 1)
+    if choice != 0:
+        auto_next = menu("Auto next level?", ["Yes", "No", "Ask me"], 1)
 
     if choice != 0:
         while True:
-            play("stage{}".format(choice), mode, auto_replay)
+            play("{}".format(choice), mode, auto_replay)
             if choice + 1 > 33 or auto_next == 2:
                 break
             if auto_next == 1:
@@ -47,7 +48,7 @@ def auto_play():
 
     else:
         for i in range(33):
-            play("stage{}".format(i + 1), mode, auto_replay)
+            play("{}".format(i + 1), mode, auto_replay)
         input()
 
 
@@ -67,14 +68,19 @@ def manual_play():
         return
     elif choice == 0:
         for i in range(33):
-            play("stage{}".format(i + 1))
+            play("{}".format(i + 1))
     else:
-        play("stage{}".format(choice))
+        play("{}".format(choice))
 
 
 if __name__ == "__main__":
     colorama.init()
     choice = 1
+
+    with open('stat.csv', 'w') as f:
+        f.write('mode,stage,time(s)\n')
+        f.close()
+
     while (True):
         choice = menu("Welcome to Bloxorz",
                     ["Generate Stages",

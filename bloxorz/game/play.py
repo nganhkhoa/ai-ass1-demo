@@ -7,6 +7,8 @@ from bloxorz.common.moves import moves, print_moves
 
 import pickle
 import click
+import time
+# import tracemalloc
 
 
 def load(f):
@@ -83,7 +85,22 @@ def play(f, mode=None, replay=None):
 
     else:
         problem = Solver(init, mode)
+
+        # tracemalloc.start()
+
+        start = time.time()
         status = problem.solve()
+        end = time.time()
+
+        # snapshot = tracemalloc.take_snapshot()
+        # tracemalloc.stop()
+        # top_stats = snapshot.statistics("lineno")
+        # print(len(top_stats))
+
+        with open('stat.csv', 'a') as f:
+            f.write('{},{},{}\n'.format(mode, init.name, end-start))
+            f.close()
+
         print(problem)
 
         if status is False:
