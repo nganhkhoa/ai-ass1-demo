@@ -1,0 +1,495 @@
+\documentclass[a4paper, 11pt]{article}
+    \usepackage{vntex}
+    %\usepackage[english,vietnam]{babel}
+    %\usepackage[utf8]{inputenc}
+    
+    %\usepackage[utf8]{inputenc}
+    %\usepackage[francais]{babel}
+    \usepackage{a4wide,amssymb,epsfig,latexsym,multicol,array,hhline,fancyhdr}
+    
+    \usepackage{amsmath}
+    \usepackage{lastpage}
+    \usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+    \usepackage{enumerate}
+    \usepackage{color}
+    \usepackage{graphicx}							% Standard graphics package
+    \usepackage{array}
+    \usepackage{tabularx, caption}
+    \usepackage{multirow}
+    \usepackage{multicol}
+    \usepackage{rotating}
+    \usepackage{graphics}
+    \usepackage{geometry}
+    \usepackage{setspace}
+    \usepackage{epsfig}
+    \usepackage{tikz}
+    \usetikzlibrary{arrows,snakes,backgrounds}
+    \usepackage{hyperref}
+    \hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true} 
+    %\usepackage{pstcol} 								% PSTricks with the standard color package
+    
+    \newtheorem{theorem}{{\bf Định lý}}
+    \newtheorem{property}{{\bf Tính chất}}
+    \newtheorem{proposition}{{\bf Mệnh đề}}
+    \newtheorem{corollary}[proposition]{{\bf Hệ quả}}
+    \newtheorem{lemma}[proposition]{{\bf Bổ đề}}
+    
+    
+    %\usepackage{fancyhdr}
+    \setlength{\headheight}{40pt}
+    \pagestyle{fancy}
+    \fancyhead{} % clear all header fields
+    \fancyhead[L]{
+     \begin{tabular}{rl}
+        \begin{picture}(25,15)(0,0)
+        \put(0,-8){\includegraphics[width=8mm, height=8mm]{hcmut.png}}
+        %\put(0,-8){\epsfig{width=10mm,figure=hcmut.eps}}
+       \end{picture}&
+        %\includegraphics[width=8mm, height=8mm]{hcmut.png} & %
+        \begin{tabular}{l}
+            \textbf{\bf \ttfamily Trường Đại Học Bách Khoa Tp.Hồ Chí Minh}\\
+            \textbf{\bf \ttfamily Khoa Khoa Học và Kỹ Thuật Máy Tính}
+        \end{tabular} 	
+     \end{tabular}
+    }
+    \fancyhead[R]{
+        \begin{tabular}{l}
+            \tiny \bf \\
+            \tiny \bf 
+        \end{tabular}  }
+    \fancyfoot{} % clear all footer fields
+    \fancyfoot[L]{\scriptsize \ttfamily Bài tập lớn Nhập môn trí tuệ nhân tạo 1}
+    \fancyfoot[R]{\scriptsize \ttfamily Trang {\thepage}/\pageref{LastPage}}
+    \renewcommand{\headrulewidth}{0.3pt}
+    \renewcommand{\footrulewidth}{0.3pt}
+    
+    
+    %%%
+    \setcounter{secnumdepth}{4}
+    \setcounter{tocdepth}{3}
+    \makeatletter
+    \newcounter {subsubsubsection}[subsubsection]
+    \renewcommand\thesubsubsubsection{\thesubsubsection .\@alph\c@subsubsubsection}
+    \newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
+                                         {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                         {1.5ex \@plus .2ex}%
+                                         {\normalfont\normalsize\bfseries}}
+    \newcommand*\l@subsubsubsection{\@dottedtocline{3}{10.0em}{4.1em}}
+    \newcommand*{\subsubsubsectionmark}[1]{}
+    \makeatother
+    
+    
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+		ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH \\
+		TRƯỜNG ĐẠI HỌC BÁCH KHOA \\
+		KHOA KHOA HỌC - KỸ THUẬT MÁY TÍNH
+	\end{center}
+
+	\vspace{1cm}
+
+	\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[width=3cm]{hcmut.png}
+		\end{center}
+	\end{figure}
+
+	\vspace{1cm}
+
+
+	\begin{center}
+		\begin{tabular}{c}
+			\multicolumn{1}{l}{\textbf{{\Large NHẬP MÔN TRÍ TUỆ NHÂN TẠO}}} \\
+			~~                                                              \\
+			\hline
+			\\
+			\multicolumn{1}{l}{\textbf{{\Large Bài tập lớn 1}}}             \\
+			\\
+			\textbf{{\Huge TÌM KIẾM (SEARCHING)}}                           \\
+			\\
+			\hline
+		\end{tabular}
+	\end{center}
+
+	\vspace{3cm}
+
+	\begin{table}[h]
+		\begin{tabular}{rrl}
+			\hspace{5 cm} & Giảng viên:     & Vương Bá Thịnh                   \\
+			              & Nhóm sinh viên: & Nguyễn Lê Huy - 1611290          \\
+			              &                 & Trương Hoàng Huy - 1611352       \\
+			              &                 & Nguyễn Anh Khoa - 1611617        \\
+			              &                 & Nguyễn Quang Hoàng Lâm - 1611743 \\
+			              &                 & Trần Đăng Khôi - 1611660         \\
+		\end{tabular}
+	\end{table}
+
+	\begin{center}
+		{\footnotesize TP. HỒ CHÍ MINH, THÁNG 5/2018}
+	\end{center}
+\end{titlepage}
+
+
+%\thispagestyle{empty}
+
+\newpage
+\tableofcontents
+\newpage
+\section{Đề bài}
+Sinh viên phải hiện thực ba giải thuật: Depth-first search, Breadth-first search,
+và Simple Hill Climbing (hoặc 1 giải thuật heuristic khác) để giải 33 màn của trò chơi
+\textbf{Bloxorz}.
+\section{Cài đặt}
+Dự án này dùng console, đã được kiểm tra trên linux, còn trên window thì không
+đảm bảo hoạt động ổn định.
+\subsection{Yêu cầu}
+Để có thể chạy được các file python, ta cần phải có đủ các yếu tố sau:
+\begin{itemize}
+	\item Phải có python 3.6 trở lên
+	\item Có pip để cài đặt các packages cần thiết
+\end{itemize}
+\subsection{Cách cài đặt và chạy}
+\begin{verbatim}
+> pip install -r requirements.txt
+> python main.py
+\end{verbatim}
+Hoặc ta có thể dùng virtualenv
+\begin{verbatim}
+> virtualenv bloxorz-env
+> source bloxorz-env/bin/activate
+> pip install -r requirements.txt
+> python main.py    
+\end{verbatim}
+Ta chạy trò chơi bằng câu lệnh "\texttt{python main.py}" hoặc "\texttt{python3 main.py}"
+\newpage
+\section{Cấu trúc files}
+\begin{verbatim}
+    /------------------------
+    |---main.py
+    |---raw/
+    |---|---stage1
+    |---|---stage2
+    |---|---...
+    |---bloxorz/
+    |---|---common/
+    |---|---|---getKey.py
+    |---|---|---menu.py
+    |---|---|---moves.py
+    |---|---game/
+    |---|---|---play.py
+    |---|---|---Stage.py
+    |---|---|---Tile.py
+    |---|---|---TileType.py
+    |---|---solver/
+    |---|---|---Solver.py
+    |---|---|---State.py
+    |---|---|---Block.py
+    |---|---|---mode.py
+    |---|---|
+    |---|---|---algorithm implement files
+    |---|---stages/
+    |---|---|---GenStage.py
+    |---|---|---stage1.py
+    |---|---|---stage2.py
+    |---|---...
+\end{verbatim}
+\section{Cấu trúc trò chơi}
+\subsection{Tiles (Các lát gạch)}
+\subsubsection{Giải thích}
+Mỗi lát gạch là một ô trong trò chơi. Có nhiều loại gạch là:
+\begin{enumerate}
+	\item Lát gạch bình thường (tile): Loại này chỉ là một ô bình thường.
+	\item Lát gạch mềm (soft tile): Loại này không thể giữ 2 khối cùng 1 lúc, tức là 2 khối lập
+	      phương chồng lên nhau cùng đứng trên ô gạch này thì sẽ làm vỡ gạch và rớt xuống.
+	\item Lát gạch "nút" (button tile): Loại này như là nút, khi khối lập phương đè lên nó thì
+	      nó sẽ kích hoạt một cái gì đó tùy thuộc vào màn chơi. Và ô gạch này cũng có nhiều loại.
+	\item Lát gạch "cầu" (bridge tile): Loại này là cái sẽ bị kích hoạt bởi ô gạch "nút". Nó có thể
+	      được đóng hoặc mở hoặc cả hai.
+	\item Lát gạch "mục tiêu" (goal tile): Khi cả 2 khối lập phương cùng đứng trên ô gạch này là
+	      sẽ chiến thắng màn chơi.
+	\item Lát gạch "phân chia" (split tile): Khi cả 2 khối lập phương cùng đứng trên ô gạch này thì
+	      sẽ bị phân chia thành 2 khối lập phương tách biệt nhau ở 2 vị trí khác nhau.
+\end{enumerate}
+Lát gạch "nút" được chia thành 2 loại chính là \textbf{soft} và \textbf{hard}, \textbf{soft} chỉ cần
+1 khối lập phương đè lên còn \textbf{hard} thì cần cả 2 khối đè lên để kích hoạt.
+Mỗi loại đó thì được chia thành các loại sau:
+\begin{enumerate}
+	\item Loại thường: Loại này thì có nhiệm vụ toggle, tức là đóng và mở.
+	\item Special: Loại này chỉ có đóng hoặc mở chứ không toggle.
+	\item Hell: Loại này kết hợp cả loại thường và special.
+\end{enumerate}
+Sau khi xem xét các loại trên, cuối cùng ta có được một lớp enum như sau:
+\begin{verbatim}
+// c++
+enum class TileType : int {
+    normal,
+    goal,
+    split,
+    soft_ground,
+
+    soft_button,
+    hard_button,
+
+    soft_special_button,
+    hard_special_button
+
+    soft_hell_button,
+    hard_hell_button
+};
+\end{verbatim}
+\subsubsection{Lớp Tile}
+Lớp Tile được hiện thực như sau:
+\begin{verbatim}
+// c++
+class Tile {
+    public:
+    TileType type;
+    bool valid;         // if standing on this tile is ok
+    int split_place[4]; // place after split
+    
+    Tile*[] toggle;       // Tiles to toggle
+    Tile*[] open;         // Tiles to change to open
+    Tile*[] close;        // Tiles to change to close
+    
+    int* trigger(bool standing);
+};
+\end{verbatim}
+Do có nhiều loại gạch nên ta có nhiều cách construct:\\~\\
+Loại gạch thường là dễ nhất: \texttt{Tile()}\\~\\
+Loại gạch "mục tiêu" và "mềm" như sau: \\\texttt{Tile(TileType.goal)} và
+\texttt{Tile(TileType.soft\_ground)}\\~\\
+Loại gạch "cầu" cần phải biết lúc đầu nó có hay chưa nên có thêm biên bool như sau:
+\texttt{Tile(TileType.bridge, true)} hoặc \texttt{Tile(TileType.bridge, false)}\\~\\
+Loại gạch "nút" là khó nhất, và ta đã làm như sau:
+\begin{verbatim}
+// c++
+
+// making a button which will toggle on active
+Tile(TileType.soft_button, Tile*[] toggle);
+    
+// making a button which will open gates only
+Tile(TileType.soft_special_button, Tile*[] open, NULL);
+    
+// making a button which will close gates only
+Tile(TileType.soft_special_button, NULL, Tile*[] close);
+    
+// making a button which will open and closes set of bridges
+Tile(TileType.soft_special_button, Tile*[] open, Tile*[] close);
+    
+// making a button which will open and closes set of bridges but also toggle some
+Tile(TileType.soft_hell_button, Tile*[] toggle, Tile*[] open, Tile*[] close);
+    
+// the same for hard button
+\end{verbatim}
+\subsubsection{Quá trình kích hoạt}
+Một lát gạch có một hàm kích hoạt (trigger function), nó sẽ được thực hiện tùy theo loại gạch như sau:
+\begin{itemize}
+	\item Loại "nút": tùy theo loại nút, hàm có thể đóng/mở/toggle các cây cầu
+	\item Loại "phân chia": hàm sẽ trả về địa chỉ mới của các khối lập phương
+	\item Loại "mềm": hàm sẽ ném (throw) tính hiệu lỗi "Fall"
+	\item Loại "cầu": nếu không hiệu lực thì hàm sẽ trả về "Hidden bridge"
+\end{itemize}
+Ngoài các trường hợp trên thì hàm sẽ không làm gì cả.
+\subsection{Nền (stage)}
+Lớp nền lưu màn chơi và vị trí của các khối lập phương thành các file binary.
+\begin{verbatim}
+// c++
+class Stage {
+    public:
+    Tile[][] board;  // a 2 dimension matrix Tile
+    int _x;
+    int _y;
+    char* name;
+    
+    Stage(char* name, Tile[][] b, int x, int y);
+    void save(char* filename);
+}
+\end{verbatim}
+Lớp này được truyền vào lớp trạng thái khi chơi.
+\subsection{Khối lập phương (block)}
+Khối lập phương là nhân vật chính trong trò chơi, mọi thứ đều diễn ra xung quanh khối lập phương.
+Để phân biệt, khi 2 khối lập phương dính vào nhau thì ta gọi là Blox, còn riêng biệt thì ta gọi là Block.
+Block chính nó chỉ có 1 index, index còn lại được tính toán thông qua trạng thái (đứng, nằm dọc, nằm ngang). \\~\\
+Khi hàm phân chia kích hoạt, Block sẽ chuyển trạng thái của nó thành neutral. Vì thế ta cần thêm 1 block để
+đại diện cho block được phân chia. Blox được hiện thực là 1 array ở trong lớp trạng thái. Ta có một bit chọn
+block nào sẽ được di chuyển khi hàm di chuyển được gọi.
+\subsection{Các nước di chuyển (moves)}
+Đây là lớp enum như sau:
+\begin{verbatim}
+// c++
+enum moves {
+    nomoves,
+    up,
+    down,
+    right,
+    left,
+    split,
+    join,
+    swap
+};
+\end{verbatim}
+\subsection{Trạng thái (state)}
+Lớp trạng thái hơi đơn giản, nó chỉ gồm cái nền và khối lập phương và một số phương thức.
+\begin{verbatim}
+    // c++
+    class State {
+        Tile[][] board;
+        Block blox[2];
+        int selection = 1;
+        moves[] moves;
+    
+        void toggleActive() {
+            if (this->selection == 2)
+                this->selection = 1;
+            else
+                this->selection = 2
+        }
+    };
+    
+    void move(State* s, moves m) {
+        void* ret = NULL;
+        Block* block = &(s->blox[x->selection - 1])
+        try {
+            block->move(m);
+    
+            if (block is out of bound)
+                throw outofbound
+    
+            // trigger the tiles
+            ret = s->board[block->index()].trigger();
+    
+            if !(block->standing || block->spliting)
+                // trigger the other block
+        }
+        catch(everything) {
+            // reverse the move
+            block->move(m.reverse())
+            throw error;
+        }
+    
+        s->moves.append(m)
+    
+        if (ret != NULL) {
+            // ret is now a index after split
+            s->blox[0]->split(ret);
+            // post process
+            // blox[1] = new Block(ret);
+    
+            s->moves.append(moves.split)
+        }
+    
+        // try to join
+        // if not split, return false
+        // if not able to join, return false
+        // else join and return true and add to list of moves
+        if (s->join())
+            s->moves.append(moves.join)
+    }
+\end{verbatim}
+Khi viết các giải thuật, chỉ cần gọi \texttt{move(s, direction)} là xong. Nếu khi di chuyển mà có lỗi
+(ra ngoài nền, đứng trên lát gạch "mềm"), thì cứ việc bỏ qua nó.
+\subsection{Lời giải (solver)}
+Framework này dựa trên mẫu chiến lược, tùy theo chế độ nào mà ta chọn, nó sẽ chạy giải thuật tương ứng. 
+Lớp chính của solver lưu trạng thái khởi đầu, trạng thái kết thúc nếu có, và chế độ giải thuật. Hơn nữa, 
+khi tạo các trạng thái, trạng thái đã tồn tại có thể được tạo đi tạo lại. Để ngăn chặn điều này, lớp solver 
+sẽ lưu một danh sách các "kí hiệu trạng thái".\\~\\
+"Kí hiệu trạng thái" là một chuỗi được định nghĩa rằng trạng thái được sinh ra là duy nhất.\\~\\
+Một lời gọi tới solver sẽ trông giống như thế này:
+\begin{verbatim}
+// c++
+BinaryLoader* binary = new BinaryLoader();  // a fake binary loader
+Stage* stage = binary->load("Filename");
+State* init = new State(stage);
+m = mode.bfs;  // bfs algo
+Solver* problem = new Solver(init, mode);
+problem->solve();
+problem->printSolution();
+\end{verbatim}
+\section{Các giải thuật}
+\subsection{BFS}
+\subsubsection{Giải thích}
+Giải thuật được hiện thực theo mã giả sau:
+\begin{verbatim}
+Tạo queue với 1 phần tử là trạng thái khởi đầu
+Khởi tạo dãy dấu vết
+Khởi tạo bộ đếm bằng 0
+Lặp cho tới khi queue rỗng:
+    Nếu bộ đếm > 50000 thì trả về False
+    Tăng bộ đếm lên thêm 1
+    Lấy cur_state = dequeue(queue)
+    Nếu cur_state là đích thì trả về True
+    Lặp từng khối:
+        Lặp từng nước đi:
+            thử:
+                sinh ra trạng thái mới là new_state
+                lấy dấu vết của new_state
+                nếu dấu vết không có trong dãy dấu vết thì:
+                    enqueue(new_state)
+                    thêm dấu vết vào dãy dấu vết
+            thấy lỗi thì cứ tiếp tục
+Trả về False
+\end{verbatim}
+\subsubsection{Bảng số liệu}
+\subsection{DFS}
+\subsubsection{Giải thích}
+Giải thuật được hiện thực theo mã giả sau:
+\begin{verbatim}
+Tạo stack là list với 1 phần tử là trạng thái khởi đầu
+Khởi tạo dãy dấu vết
+Khởi tạo bộ đếm bằng 0
+Lặp cho tới khi stack rỗng:
+    Nếu bộ đếm > 50000 thì trả về False
+    Tăng bộ đếm lên thêm 1
+    Lấy cur_state = phần tử cuối của stack
+    Xóa phần tử cuối của stack đi
+    Nếu cur_state là đích thì trả về True
+    Lặp từng khối:
+        Lặp từng nước đi:
+            thử:
+                sinh ra trạng thái mới là new_state
+                lấy dấu vết của new_state
+                nếu dấu vết không có trong dãy dấu vết thì:
+                    thêm new_state vào list stack
+                    thêm dấu vết vào dãy dấu vết
+            thấy lỗi thì cứ tiếp tục
+Trả về False
+\end{verbatim}
+\subsubsection{Bảng số liệu}
+\subsection{HILL CLIMBING}
+\subsubsection{Giải thích}
+Giải thuật được hiện thực theo mã giả sau:
+\begin{verbatim}
+Khởi tạo biến prevEval
+Khởi tạo dãy dấu vết
+Khởi tạo bộ đếm bằng 0
+Khởi tạo cur_state là trạng thái khởi đầu
+Cứ lặp:
+    Nếu bộ đếm > 50000 thì trả về False
+    Tăng bộ đếm lên thêm 1
+    Nếu cur_state là đích thì trả về True
+    Tạo cannotMove là list nếu khối bị chia thì là 2 phần tử, 
+        không thì 1 phần tử
+    Đặt tất cả các phần tử của cannotMove là True
+    Lặp từng khối:
+        Lặp từng nước đi:
+            thử:
+                sinh ra trạng thái mới là new_state
+                lấy dấu vết của new_state
+                gán giá trị trả về của hàm EVAL(new_state) là newEval 
+                nếu dấu vết không có trong dãy dấu vết 
+                    và newEval tốt hơn prevEval thì:
+                        gán prevEval = newEval
+                        gán cur_state = new_state
+                        thêm dấu vết vào dãy dấu vết
+                        phần tử của cannotMove tại khối thứ i = False
+                        thoát vòng lặp nước đi
+            thấy lỗi thì cứ tiếp tục
+    Nếu (cannotMove có 2 phần tử và cả 2 đều là True) 
+        hoặc (1 phần tử là True) thì trả về False
+Trả về False
+\end{verbatim}
+Hàm EVAL được thực hiện như sau:
+\subsubsection{Bảng số liệu}
+\end{document}
