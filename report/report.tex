@@ -289,7 +289,7 @@ Một lát gạch có một hàm kích hoạt (trigger function), nó sẽ đư�
 	\item Loại "nút": tùy theo loại nút, hàm có thể đóng/mở/toggle các cây cầu
 	\item Loại "phân chia": hàm sẽ trả về địa chỉ mới của các khối lập phương
 	\item Loại "mềm": hàm sẽ ném (throw) tính hiệu lỗi "Fall"
-	\item Loại "cầu": nếu không hiệu lực thì hàm sẽ trả về "Hidden bridge"
+	\item Loại "cầu": nếu không hiệu lực thì hàm sẽ throw "Hidden bridge"
 \end{itemize}
 Ngoài các trường hợp trên thì hàm sẽ không làm gì cả.
 \subsection{Nền (stage)}
@@ -391,9 +391,9 @@ Lớp trạng thái hơi đơn giản, nó chỉ gồm cái nền và khối l�
 Khi viết các giải thuật, chỉ cần gọi \texttt{move(s, direction)} là xong. Nếu khi di chuyển mà có lỗi
 (ra ngoài nền, đứng trên lát gạch "mềm"), thì cứ việc bỏ qua nó.
 \subsection{Lời giải (solver)}
-Framework này dựa trên mẫu chiến lược, tùy theo chế độ nào mà ta chọn, nó sẽ chạy giải thuật tương ứng. 
-Lớp chính của solver lưu trạng thái khởi đầu, trạng thái kết thúc nếu có, và chế độ giải thuật. Hơn nữa, 
-khi tạo các trạng thái, trạng thái đã tồn tại có thể được tạo đi tạo lại. Để ngăn chặn điều này, lớp solver 
+Framework này dựa trên mẫu chiến lược, tùy theo chế độ nào mà ta chọn, nó sẽ chạy giải thuật tương ứng.
+Lớp chính của solver lưu trạng thái khởi đầu, trạng thái kết thúc nếu có, và chế độ giải thuật. Hơn nữa,
+khi tạo các trạng thái, trạng thái đã tồn tại có thể được tạo đi tạo lại. Để ngăn chặn điều này, lớp solver
 sẽ lưu một danh sách các "kí hiệu trạng thái".\\~\\
 "Kí hiệu trạng thái" là một chuỗi được định nghĩa rằng trạng thái được sinh ra là duy nhất.\\~\\
 Một lời gọi tới solver sẽ trông giống như thế này:
@@ -432,6 +432,46 @@ Lặp cho tới khi queue rỗng:
 Trả về False
 \end{verbatim}
 \subsubsection{Bảng số liệu}
+Bảng số liệu về thời gian:
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline
+		Màn chơi & Thời gian(s)      \\ \hline
+		1        & 0.266571521759033 \\ \hline
+		2        & 1.3626389503479   \\ \hline
+		3        & 0.355221509933472 \\ \hline
+		4        & 0.422888994216919 \\ \hline
+		5        & 1.83321666717529  \\ \hline
+		6        & 0.495889902114868 \\ \hline
+		7        & 0.80048131942749  \\ \hline
+		8        & 4.72867488861084  \\ \hline
+		9        & 5.53647089004517  \\ \hline
+		10       & 106.905389547348  \\ \hline
+		11       & 1.13060832023621  \\ \hline
+		12       & 2.10779356956482  \\ \hline
+		13       & 1.10481071472168  \\ \hline
+		14       & 3.52388048171997  \\ \hline
+		15       & 81.3969686031342  \\ \hline
+		16       & 2.33484292030334  \\ \hline
+		17       & 5.38768458366394  \\ \hline
+		18       & 4.20741415023804  \\ \hline
+		19       & 1.68268489837646  \\ \hline
+		20       & 73.6282043457031  \\ \hline
+		21       & 1.71589279174805  \\ \hline
+		22       & 2.1993715763092   \\ \hline
+		23       & 78.8143999576569  \\ \hline
+		24       & 3.81749391555786  \\ \hline
+		25       & 3.30008316040039  \\ \hline
+		26       & 159.813554048538  \\ \hline
+		27       & 2.79411315917969  \\ \hline
+		28       & 131.718682527542  \\ \hline
+		29       & 13.9431304931641  \\ \hline
+		30       & 5.53034996986389  \\ \hline
+		31       & 8.13841199874878  \\ \hline
+		32       & 4.42125082015991  \\ \hline
+		33       & 7.48211884498596  \\ \hline
+	\end{tabular}
+\end{center}
 \subsection{DFS}
 \subsubsection{Giải thích}
 Giải thuật được hiện thực theo mã giả sau:
@@ -457,6 +497,46 @@ Lặp cho tới khi stack rỗng:
 Trả về False
 \end{verbatim}
 \subsubsection{Bảng số liệu}
+Bảng số liệu về thời gian:
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline
+		Màn chơi & Thời gian(s)      \\ \hline
+		1        & 0.135706424713135 \\ \hline
+		2        & 1.58651113510132  \\ \hline
+		3        & 0.313766956329346 \\ \hline
+		4        & 0.474039077758789 \\ \hline
+		5        & 0.696768522262573 \\ \hline
+		6        & 0.413698673248291 \\ \hline
+		7        & 0.701162338256836 \\ \hline
+		8        & 0.7951500415802   \\ \hline
+		9        & 8.05996417999268  \\ \hline
+		10       & 11.2849471569061  \\ \hline
+		11       & 1.04428720474243  \\ \hline
+		12       & 2.22384285926819  \\ \hline
+		13       & 1.14733099937439  \\ \hline
+		14       & 1.85471248626709  \\ \hline
+		15       & 6.61174869537354  \\ \hline
+		16       & 4.19367742538452  \\ \hline
+		17       & 3.84662222862244  \\ \hline
+		18       & 2.80050277709961  \\ \hline
+		19       & 1.08713054656982  \\ \hline
+		20       & 64.9240102767944  \\ \hline
+		21       & 0.979677677154541 \\ \hline
+		22       & 1.60459566116333  \\ \hline
+		23       & 29.9765365123749  \\ \hline
+		24       & 0.794204235076904 \\ \hline
+		25       & 1.6055965423584   \\ \hline
+		26       & 69.1387176513672  \\ \hline
+		27       & 2.36821866035461  \\ \hline
+		28       & 120.781942844391  \\ \hline
+		29       & 12.1229801177979  \\ \hline
+		30       & 2.8791708946228   \\ \hline
+		31       & 5.11534285545349  \\ \hline
+		32       & 2.44287276268005  \\ \hline
+		33       & 7.44981098175049  \\ \hline
+	\end{tabular}
+\end{center}
 \subsection{HILL CLIMBING}
 \subsubsection{Giải thích}
 Giải thuật được hiện thực theo mã giả sau:
