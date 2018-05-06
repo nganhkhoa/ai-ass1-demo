@@ -31,6 +31,7 @@ class Solver:
         self.goal = None
         self.setTrace = set()
 
+    @profile
     def solve(self):
         print("[!] {}".format(self.init.name))
         if self.mode == mode.bfs:

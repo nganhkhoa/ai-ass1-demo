@@ -3,7 +3,6 @@ from bloxorz.common.moves import moves
 from bloxorz.solver.State import move
 from bloxorz.solver.State import getTrace
 
-
 def DFS(s):
     stack = [s.queue.get()]
     setTrace = s.setTrace
