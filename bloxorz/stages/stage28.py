@@ -45,5 +45,5 @@ def stage28():
     arr[9] = [None, None, Tile(), None, None, 
                 Tile(), Tile(), Tile(), B2[0], B2[1], Tile(), Tile(), Tile()]
 
-    s = Stage('stage28', arr, 2, 2)
-    s.save('stage28')
+    s = Stage('28', arr, 2, 2)
+    s.save('28')

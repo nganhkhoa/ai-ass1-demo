@@ -41,5 +41,5 @@ def stage24():
     arr[7] = [None for i in range(5)]
     arr[7] += [Tile(T.hard_special_button, B2, []), Tile(), SB2, None, None, Tile(), Tile(), Tile()]
 
-    s = Stage('stage24', arr, 2, 1)
-    s.save('stage24')
+    s = Stage('24', arr, 2, 1)
+    s.save('24')

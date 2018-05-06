@@ -49,5 +49,5 @@ def stage22():
     arr[9] += [None for i in range(6)]
     arr[9] += [Tile(T.hard_button, [B1[0]])]
 
-    s = Stage('stage22', arr, 3, 1)
-    s.save('stage22')
+    s = Stage('22', arr, 3, 1)
+    s.save('22')

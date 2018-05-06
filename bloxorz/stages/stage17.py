@@ -46,5 +46,5 @@ def stage17():
     arr[9] += [None for i in range(8)]
     arr[9] += [Tile(), Tile(T.hard_special_button, HB2, SB)]
 
-    s = Stage('stage17', arr, 1, 1)
-    s.save('stage17')
+    s = Stage('17', arr, 1, 1)
+    s.save('17')

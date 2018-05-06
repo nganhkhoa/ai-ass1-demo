@@ -46,5 +46,5 @@ def stage27():
     arr[9] = [None for i in range(6)]
     arr[9] += [SB1, Tile(), Tile(), SB2]
 
-    s = Stage('stage27', arr, 1, 1)
-    s.save('stage27')
+    s = Stage('27', arr, 1, 1)
+    s.save('27')

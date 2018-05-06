@@ -34,5 +34,5 @@ def stage2():
               Tile(), Tile(), Tile(), Tile(),
               None, None, None, None, None, None]
 
-    s = Stage('stage2', arr, 4, 1)
-    s.save('stage2')
+    s = Stage('2', arr, 4, 1)
+    s.save('2')

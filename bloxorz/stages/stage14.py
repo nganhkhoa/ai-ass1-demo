@@ -44,5 +44,5 @@ def stage14():
     arr[9] += [Tile() for i in range(5)]
     arr[9].append(Tile(T.hard_button, HB2))
 
-    s = Stage('stage14', arr, 2, 4)
-    s.save('stage14')
+    s = Stage('14', arr, 2, 4)
+    s.save('14')
