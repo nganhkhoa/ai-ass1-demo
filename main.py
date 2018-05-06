@@ -7,6 +7,7 @@ from bloxorz.common.menu import menu
 
 import colorama
 
+
 def auto_play():
     try:
         print("\033[1H", end="")
