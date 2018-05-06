@@ -12,7 +12,7 @@
     \usepackage[lined,boxed,commentsnumbered]{algorithm2e}
     \usepackage{enumerate}
     \usepackage{color}
-    \usepackage{graphicx}							% Standard graphics package
+    \usepackage{graphicx, listings}							% Standard graphics package
     \usepackage{array}
     \usepackage{tabularx, caption}
     \usepackage{multirow}
@@ -34,7 +34,29 @@
     \newtheorem{corollary}[proposition]{{\bf Hệ quả}}
     \newtheorem{lemma}[proposition]{{\bf Bổ đề}}
     
-    
+    \definecolor{codegreen}{rgb}{0,0.6,0}
+    \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+    \definecolor{codepurple}{rgb}{0.58,0,0.82}
+    \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+    \lstdefinestyle{mystyle}{
+        backgroundcolor=\color{backcolour},
+        commentstyle=\color{codegreen},
+        keywordstyle=\color{magenta},
+        numberstyle=\tiny\color{codegray},
+        stringstyle=\color{codepurple},
+        basicstyle=\ttfamily\small,
+        breakatwhitespace=false,
+        breaklines=false,
+        captionpos=b,
+        keepspaces=true,
+        numbers=left,
+        numbersep=5pt,
+        showspaces=false,
+        showstringspaces=false,
+        showtabs=false,
+        tabsize=2
+    }
+    \lstset{style=mystyle} 
     %\usepackage{fancyhdr}
     \setlength{\headheight}{40pt}
     \pagestyle{fancy}
@@ -151,21 +173,21 @@ Dự án này dùng console, đã được kiểm tra trên linux, còn trên wi
 	\item Có pip để cài đặt các packages cần thiết
 \end{itemize}
 \subsection{Cách cài đặt và chạy}
-\begin{verbatim}
+\begin{lstlisting}
 > pip install -r requirements.txt
 > python main.py
-\end{verbatim}
+\end{lstlisting}
 Hoặc ta có thể dùng virtualenv
-\begin{verbatim}
+\begin{lstlisting}
 > virtualenv bloxorz-env
 > source bloxorz-env/bin/activate
 > pip install -r requirements.txt
 > python main.py    
-\end{verbatim}
+\end{lstlisting}
 Ta chạy trò chơi bằng câu lệnh "\texttt{python main.py}" hoặc "\texttt{python3 main.py}"
 \newpage
 \section{Cấu trúc files}
-\begin{verbatim}
+\begin{lstlisting}
     /------------------------
     |---main.py
     |---raw/
@@ -194,7 +216,7 @@ Ta chạy trò chơi bằng câu lệnh "\texttt{python main.py}" hoặc "\textt
     |---|---|---stage1.py
     |---|---|---stage2.py
     |---|---...
-\end{verbatim}
+\end{lstlisting}
 \section{Cấu trúc trò chơi}
 \subsection{Tiles (Các lát gạch)}
 \subsubsection{Giải thích}
@@ -221,7 +243,7 @@ Mỗi loại đó thì được chia thành các loại sau:
 	\item Hell: Loại này kết hợp cả loại thường và special.
 \end{enumerate}
 Sau khi xem xét các loại trên, cuối cùng ta có được một lớp enum như sau:
-\begin{verbatim}
+\begin{lstlisting}
 // c++
 enum class TileType : int {
     normal,
@@ -238,10 +260,10 @@ enum class TileType : int {
     soft_hell_button,
     hard_hell_button
 };
-\end{verbatim}
+\end{lstlisting}
 \subsubsection{Lớp Tile}
 Lớp Tile được hiện thực như sau:
-\begin{verbatim}
+\begin{lstlisting}
 // c++
 class Tile {
     public:
@@ -255,7 +277,7 @@ class Tile {
     
     int* trigger(bool standing);
 };
-\end{verbatim}
+\end{lstlisting}
 Do có nhiều loại gạch nên ta có nhiều cách construct:\\~\\
 Loại gạch thường là dễ nhất: \texttt{Tile()}\\~\\
 Loại gạch "mục tiêu" và "mềm" như sau: \\\texttt{Tile(TileType.goal)} và
@@ -263,7 +285,7 @@ Loại gạch "mục tiêu" và "mềm" như sau: \\\texttt{Tile(TileType.goal)}
 Loại gạch "cầu" cần phải biết lúc đầu nó có hay chưa nên có thêm biên bool như sau:
 \texttt{Tile(TileType.bridge, true)} hoặc \texttt{Tile(TileType.bridge, false)}\\~\\
 Loại gạch "nút" là khó nhất, và ta đã làm như sau:
-\begin{verbatim}
+\begin{lstlisting}
 // c++
 
 // making a button which will toggle on active
@@ -278,11 +300,13 @@ Tile(TileType.soft_special_button, NULL, Tile*[] close);
 // making a button which will open and closes set of bridges
 Tile(TileType.soft_special_button, Tile*[] open, Tile*[] close);
     
-// making a button which will open and closes set of bridges but also toggle some
-Tile(TileType.soft_hell_button, Tile*[] toggle, Tile*[] open, Tile*[] close);
+// making a button which will open and closes set of 
+bridges but also toggle some
+Tile(TileType.soft_hell_button, Tile*[] toggle, 
+     Tile*[] open, Tile*[] close);
     
 // the same for hard button
-\end{verbatim}
+\end{lstlisting}
 \subsubsection{Quá trình kích hoạt}
 Một lát gạch có một hàm kích hoạt (trigger function), nó sẽ được thực hiện tùy theo loại gạch như sau:
 \begin{itemize}
@@ -294,7 +318,7 @@ Một lát gạch có một hàm kích hoạt (trigger function), nó sẽ đư�
 Ngoài các trường hợp trên thì hàm sẽ không làm gì cả.
 \subsection{Nền (stage)}
 Lớp nền lưu màn chơi và vị trí của các khối lập phương thành các file binary.
-\begin{verbatim}
+\begin{lstlisting}
 // c++
 class Stage {
     public:
@@ -306,7 +330,7 @@ class Stage {
     Stage(char* name, Tile[][] b, int x, int y);
     void save(char* filename);
 }
-\end{verbatim}
+\end{lstlisting}
 Lớp này được truyền vào lớp trạng thái khi chơi.
 \subsection{Khối lập phương (block)}
 Khối lập phương là nhân vật chính trong trò chơi, mọi thứ đều diễn ra xung quanh khối lập phương.
@@ -317,7 +341,7 @@ Khi hàm phân chia kích hoạt, Block sẽ chuyển trạng thái của nó th
 block nào sẽ được di chuyển khi hàm di chuyển được gọi.
 \subsection{Các nước di chuyển (moves)}
 Đây là lớp enum như sau:
-\begin{verbatim}
+\begin{lstlisting}
 // c++
 enum moves {
     nomoves,
@@ -329,10 +353,10 @@ enum moves {
     join,
     swap
 };
-\end{verbatim}
+\end{lstlisting}
 \subsection{Trạng thái (state)}
 Lớp trạng thái hơi đơn giản, nó chỉ gồm cái nền và khối lập phương và một số phương thức.
-\begin{verbatim}
+\begin{lstlisting}
     // c++
     class State {
         Tile[][] board;
@@ -387,7 +411,7 @@ Lớp trạng thái hơi đơn giản, nó chỉ gồm cái nền và khối l�
         if (s->join())
             s->moves.append(moves.join)
     }
-\end{verbatim}
+\end{lstlisting}
 Khi viết các giải thuật, chỉ cần gọi \texttt{move(s, direction)} là xong. Nếu khi di chuyển mà có lỗi
 (ra ngoài nền, đứng trên lát gạch "mềm"), thì cứ việc bỏ qua nó.
 \subsection{Lời giải (solver)}
@@ -397,7 +421,7 @@ khi tạo các trạng thái, trạng thái đã tồn tại có thể được 
 sẽ lưu một danh sách các "kí hiệu trạng thái".\\~\\
 "Kí hiệu trạng thái" là một chuỗi được định nghĩa rằng trạng thái được sinh ra là duy nhất.\\~\\
 Một lời gọi tới solver sẽ trông giống như thế này:
-\begin{verbatim}
+\begin{lstlisting}
 // c++
 BinaryLoader* binary = new BinaryLoader();  // a fake binary loader
 Stage* stage = binary->load("Filename");
@@ -406,8 +430,9 @@ m = mode.bfs;  // bfs algo
 Solver* problem = new Solver(init, mode);
 problem->solve();
 problem->printSolution();
-\end{verbatim}
+\end{lstlisting}
 \section{Các giải thuật}
+Sự tiêu tốn bộ nhớ được kiểm tra bằng memory\_profiler ở hàm solve trong file Solver.py
 \subsection{BFS}
 \subsubsection{Giải thích}
 Giải thuật được hiện thực theo mã giả sau:
@@ -539,37 +564,82 @@ Bảng số liệu về thời gian và bộ nhớ:
 \end{center}
 \subsection{HILL CLIMBING}
 \subsubsection{Giải thích}
-Giải thuật được hiện thực theo mã giả sau:
+Giải thuật này chính xác hơn là Steepest ascent climbing. Ta giải quyết vấn đề tối ưu cục bộ bằng
+backtracking. Giải thuật được hiện thực theo mã giả sau:
 \begin{verbatim}
-Khởi tạo biến prevEval
 Khởi tạo dãy dấu vết
 Khởi tạo bộ đếm bằng 0
-Khởi tạo cur_state là trạng thái khởi đầu
-Cứ lặp:
+Khởi tạo state là trạng thái khởi đầu
+Duyệt tìm vị trí goal bằng cách dùng state
+Khởi tạo stack là mảng trạng thái 1 phần tử là trạng thái ban đầu
+Lặp cho đến khi stack rỗng:
     Nếu bộ đếm > 50000 thì trả về False
     Tăng bộ đếm lên thêm 1
+    Gán cur_state là phần tử cuối cùng của stack
+    Xóa phần tử cuối của stack đi
     Nếu cur_state là đích thì trả về True
-    Tạo cannotMove là list nếu khối bị chia thì là 2 phần tử, 
-        không thì 1 phần tử
-    Đặt tất cả các phần tử của cannotMove là True
+    Khởi tạo priority là mảng rỗng
     Lặp từng khối:
         Lặp từng nước đi:
             thử:
                 sinh ra trạng thái mới là new_state
                 lấy dấu vết của new_state
-                gán giá trị trả về của hàm EVAL(new_state) là newEval 
-                nếu dấu vết không có trong dãy dấu vết 
-                    và newEval tốt hơn prevEval thì:
-                        gán prevEval = newEval
-                        gán cur_state = new_state
+                gán giá trị trả về của hàm EVAL(new_state, goal) là newEval 
+                nếu dấu vết không có trong dãy dấu vết:
                         thêm dấu vết vào dãy dấu vết
-                        phần tử của cannotMove tại khối thứ i = False
-                        thoát vòng lặp nước đi
+                        thêm cặp (newEval, new_state) vào priority
             thấy lỗi thì cứ tiếp tục
-    Nếu (cannotMove có 2 phần tử và cả 2 đều là True) 
-        hoặc (1 phần tử là True) thì trả về False
+    Sắp xếp priority giảm dần
+    Lấy hết trạng thái trong priority bỏ vào stack theo thứ tự đó
 Trả về False
 \end{verbatim}
 Hàm EVAL được thực hiện như sau:
+\begin{verbatim}
+EVAL(trạng thái, vị trí goal):
+    Khởi tạo ans = 0
+    Lặp từng khối lập phương:
+        ans += khoảng cách giữa từng khối đến goal
+    Trả về ans
+\end{verbatim}
 \subsubsection{Bảng số liệu}
+Bảng số liệu về thời gian và bộ nhớ:
+\begin{center}
+	\begin{tabular}{|c|l|c|}
+		\hline
+		Màn chơi & Thời gian (s)       & Bộ nhớ (MiB) \\ \hline
+		1        & 0.0395197868347168  & 17.305       \\ \hline
+		2        & 1.7283692359924316  & 18.398       \\ \hline
+		3        & 0.24228239059448242 & 17.551       \\ \hline
+		4        & 0.6023290157318115  & 17.328       \\ \hline
+		5        & 0.8682773113250732  & 18.129       \\ \hline
+		6        & 0.5019304752349854  & 17.336       \\ \hline
+		7        & 0.7346084117889404  & 17.332       \\ \hline
+		8        & 0.2118821144104004  & 18.234       \\ \hline
+		9        & 0.9325628280639648  & 19.246       \\ \hline
+		10       & 8.855451345443726   & 31.543       \\ \hline
+		11       & 1.0376548767089844  & 17.246       \\ \hline
+		12       & 1.1754610538482666  & 18.195       \\ \hline
+		13       & 0.46993041038513184 & 17.355       \\ \hline
+		14       & 1.731593370437622   & 17.879       \\ \hline
+		15       & 6.74385929107666    & 22.254       \\ \hline
+		16       & 0.36205363273620605 & 17.035       \\ \hline
+		17       & 4.150902032852173   & 20.875       \\ \hline
+		18       & 2.7860164642333984  & 18.922       \\ \hline
+		19       & 0.7718052864074707  & 17.207       \\ \hline
+		20       & 74.86791396141052   & 52.602       \\ \hline
+		21       & 1.0988316535949707  & 17.285       \\ \hline
+		22       & 0.9383811950683594  & 18.355       \\ \hline
+		23       & 29.081502676010132  & 43.809       \\ \hline
+		24       & 1.2967350482940674  & 18.074       \\ \hline
+		25       & 1.707021713256836   & 17.516       \\ \hline
+		26       & 58.00024366378784   & 39.652       \\ \hline
+		27       & 2.257538318634033   & 17.945       \\ \hline
+		28       & 46.117361068725586  & 31.828       \\ \hline
+		29       & 11.1941556930542    & 18.434       \\ \hline
+		30       & 2.666714906692505   & 18.082       \\ \hline
+		31       & 5.266216039657593   & 19.316       \\ \hline
+		32       & 3.187586545944214   & 18.809       \\ \hline
+		33       & 6.046768665313721   & 21.145       \\ \hline
+	\end{tabular}
+\end{center}
 \end{document}

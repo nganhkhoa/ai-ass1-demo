@@ -26,7 +26,7 @@ def auto_play():
     mode = m(menu("Choose your algorithm\n! as not complete",
                 ["BFS",
                 "DFS",
-                "Hill clibming (!)",
+                "Hill clibming", 
                 "Simulated Annealing (!)",
                 "Best First Search (!)"]))
 
