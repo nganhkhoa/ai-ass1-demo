@@ -495,8 +495,11 @@ Bảng số liệu về thời gian và bộ nhớ:
 		31       & 8.13841199874878  & 17.926       \\ \hline
 		32       & 4.42125082015991  & 17.477       \\ \hline
 		33       & 7.48211884498596  & 19.141       \\ \hline
-	\end{tabular}
+    \end{tabular}
 \end{center}
+Bảng số liệu cho thấy những màn chơi có thời gian giải lâu tương ứng với sự tiêu tốn bộ nhớ nhiều. Tuy 
+nhiên, có những màn chơi thời gian giải ít hơn nhưng tốn bộ nhớ nhiều hơn những màn chơi khác 
+là do cấu trúc màn chơi đó vốn dĩ đã tốn bộ nhớ hơn.
 \subsection{DFS}
 \subsubsection{Giải thích}
 Giải thuật được hiện thực theo mã giả sau:
@@ -562,6 +565,8 @@ Bảng số liệu về thời gian và bộ nhớ:
 		33       & 7.44981098175049  & 21.773       \\ \hline
 	\end{tabular}
 \end{center}
+Qua bảng số liệu này cho thấy DFS giải nhanh hơn BFS. Tuy nhiên một số màn tốn bộ nhớ rất nhiều, vì có thể 
+kết quả ở màn chơi đó nằm ở nhánh cuối và ở sâu dưới nên giải thuật phải lưu lại tất cả các nhánh phía trước.
 \subsection{HILL CLIMBING}
 \subsubsection{Giải thích}
 Giải thuật này chính xác hơn là Steepest ascent climbing. Ta giải quyết vấn đề tối ưu cục bộ bằng
@@ -642,4 +647,6 @@ Bảng số liệu về thời gian và bộ nhớ:
 		33       & 6.046768665313721   & 21.145       \\ \hline
 	\end{tabular}
 \end{center}
+Giải thuật này giải nhanh hơn hai giải thuật DFS và BFS. Nhìn chung thì hill climbing tiêu tốn bộ nhớ 
+nhiều hơn BFS chút và ít hơn DFS.
 \end{document}
